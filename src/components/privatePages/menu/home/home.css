@@ -1,0 +1,13 @@
+.anim{
+    animation: startmodal 0.5s cubic-bezier(1,0,0,1) forwards;
+}
+
+@keyframes startmodal {
+    from {
+        transform: scale(0);
+    }
+
+    to{
+        transform: scale(1);
+    }
+}
