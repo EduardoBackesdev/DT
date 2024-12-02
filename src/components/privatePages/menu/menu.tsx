@@ -3,6 +3,9 @@ import { getContacts, getFavorites } from "../../../../apis/apisCalls"
 import { useState } from "react"
 import { Home } from "./home/home"
 import { MyRegister } from "./myRegister/myRegister"
+import { Users } from "./users/users"
+import { Persons } from "./persons/persons"
+import { Contacts } from "./contacts/contacts"
 
 export function Menu(){
     const [nav, setNav] = useState(0)
@@ -21,6 +24,12 @@ export function Menu(){
                 return <Home dataContatos={contacts} dataFavoritos={favorites} re={refetch} />;
             case 1:
                 return <MyRegister />;
+            case 2:
+                return <Users />;
+            case 3:
+                return <Persons />;
+            case 4:
+                return <Contacts />;      
         }
     };
     return isLoading || isLoadingFavorites ? <h2>Carregando...</h2> : (
@@ -31,7 +40,7 @@ export function Menu(){
                 <h2 className="cursor-pointer" onClick={() => { setNav(2) }}>Usuários</h2>
                 <h2 className="cursor-pointer" onClick={() => { setNav(3) }}>Pessoas</h2>
                 <h2 className="cursor-pointer" onClick={() => { setNav(4) }}>Contatos</h2>
-                <h2 className="cursor-pointer" onClick={() => { setNav(5) }}>Logout</h2>
+                <h2 className="cursor-pointer" onClick={() => { }}>Logout</h2>
             </header>
             <div className="bg-[#ebeaea] h-[90vh]"> 
                 {renderPage(nav)}
