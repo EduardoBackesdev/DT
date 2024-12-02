@@ -8,13 +8,14 @@ import { postLogin } from "../../../apis/apisCalls";
 import { useNavigate } from "react-router-dom";
 
 
-export function Login(){
+export function Login({ auth }: any) {
     const navigate = useNavigate()
     const {mutate} = useMutation({mutationFn: (e:any) => postLogin(e),
         onSuccess: (e:any)=>{
             localStorage.setItem("token", e.accessToken)
             localStorage.setItem("id", e.id)
-            navigate("menu")
+            auth(true)
+            navigate("/menu")
         },
         onError: (e:any)=>{
             console.log(e)

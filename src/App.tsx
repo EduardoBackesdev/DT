@@ -6,19 +6,20 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Menu } from './components/privatePages/menu/menu';
 import store from './store/store'
 import { Provider, } from 'react-redux';
+import { useState } from 'react';
 
 const queryClient = new QueryClient();
 
 function App() {
-  const isAutthenticated = ()=>!!localStorage.getItem('token')
+  const [isAutthenticated, setIsAutthenticated] = useState(!!localStorage.getItem('token'))
 
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <BrowserRouter>
             <Routes>        
-                  <Route path='/' element={<Login/>}/> 
-                  <Route path='menu' element={ isAutthenticated() ? <Menu /> : <Navigate to="/" replace /> }/>
+            <Route path='/' element={<Login auth={setIsAutthenticated} />} />
+            <Route path='/menu' element={isAutthenticated ? <Menu /> : <Navigate to="/" replace />} />
             </Routes>
         </BrowserRouter>
       </Provider>
