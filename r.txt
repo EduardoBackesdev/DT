@@ -1,0 +1,2 @@
+https://demometaway.vps-kinghost.net:8485/swagger-ui/index.html#/
+
