@@ -5,9 +5,9 @@ import { Home } from "./home/home"
 
 export function Menu(){
     const [dados, setDados] = useState(localStorage.getItem('id'))
-    const {data:favorites, isLoading: isLoadingFavorites} = useQuery({
+    const {data:favorites, isLoading: isLoadingFavorites, refetch} = useQuery({
         queryKey: ['getFavorites'],
-        queryFn: ()=> getFavorites()
+        queryFn: ()=> getFavorites(),
     })
     const {data:contacts, isLoading} = useQuery({
         queryKey: ["getContacts"], 
@@ -24,7 +24,7 @@ export function Menu(){
                 <h2>Logout</h2>
             </header>
             <div className="bg-[#ebeaea] h-[90vh]"> 
-                   <Home dataContatos={contacts} dataFavoritos={favorites} />
+                   <Home dataContatos={contacts} dataFavoritos={favorites} re={refetch} />
             </div>
         </div>
     )

@@ -5,12 +5,11 @@ import { BrowserRouter, Routes, Route, Navigate  } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Menu } from './components/privatePages/menu/menu';
 import store from './store/store'
-import { Provider } from 'react-redux';
+import { Provider, } from 'react-redux';
 
 const queryClient = new QueryClient();
 
 function App() {
-
   const isAutthenticated = ()=>!!localStorage.getItem('token')
 
   return (

@@ -1,14 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type b = {
-
-}
-
-interface a {
-
-
-}
-
 const initialState = {
     modalContacts: {
         show:false
@@ -16,23 +7,33 @@ const initialState = {
     modalSearchContacts: {
         show: false
     },
+    modalNotify: {
+        show: false
+    },
+    modalNotifyError: {
+        show: false
+    },
     dataContacts: {
-        data: [{  
-            endereco:"",
-            foto: {id: "",
-                   name: "",
-                   type: ""},
-            id: "",
-            nome: ""       
-        } ] as any[]
+        data: [{}] as any[]
     }
-
 }
 
 const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    showModalNotifyError: (state)=>{
+        state.modalNotify.show = true
+    },
+    hideModalNotifyError: (state)=>{
+        state.modalNotify.show = false
+    },
+    showModalNotify: (state)=>{
+        state.modalNotify.show = true
+    },
+    hideModalNotify: (state)=>{
+        state.modalNotify.show = false
+    },
     showModalSearchContacts: (state)=>{
         state.modalSearchContacts.show = true
     },
@@ -56,12 +57,16 @@ const counterSlice = createSlice({
 });
 
 export const { 
+    hideModalNotifyError,
+    showModalNotifyError,
     showModalContacts,
     hideModalContacts,
     resetModalContacts,
     setModalContacts,
     hideModalSearchContacts,
-    showModalSearchContacts
+    showModalSearchContacts,
+    hideModalNotify,
+    showModalNotify
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

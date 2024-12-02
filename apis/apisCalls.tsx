@@ -35,3 +35,15 @@ export async function deleteContact(dados:any){
    const data = await axios.delete("https://demometaway.vps-kinghost.net:8485/api/contato/remover/" + dados)
    return data.data
 }
+
+// Função para criar ou atualizar dados de contato (FAVORITO)
+export async function postCreateAttFav(dados:any){
+   const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/favorito/salvar", dados)
+   return data.data
+}
+
+// Função para criar ou atualizar dados de contato (CONTATO)
+export async function postCreateAtt(dados:any){
+   const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/contato/salvar", dados)
+   return data.data
+}

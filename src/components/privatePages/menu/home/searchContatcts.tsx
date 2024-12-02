@@ -36,14 +36,8 @@ export function SearchContacts(){
                             return (
                                 <div className='p-2'>
                                     <div onClick={()=>{
-                                        const d = {
-                                            id: e.pessoa.id,
-                                            nome: e.pessoa.nome,
-                                            endereco: e.pessoa.endereco,
-                                            foto: e.pessoa.foto       
-                                        }
                                         dis(showModalContacts())
-                                        dis(setModalContacts(d))
+                                        dis(setModalContacts(e))
                                         }} className="rounded-xl border flex justify-between bg-white w-full border-black p-2">
                                         <h2 className="font-bold">Nome: {e.pessoa.nome}</h2>
                                     </div>

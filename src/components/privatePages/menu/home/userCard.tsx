@@ -1,17 +1,81 @@
 import { useDispatch, useSelector} from "react-redux"
-import { hideModalContacts, resetModalContacts } from "../../../../store/conterSlice"
+import { hideModalContacts, resetModalContacts, showModalNotify, showModalNotifyError } from "../../../../store/conterSlice"
 import './home.css'
 import { RootState } from "../../../../store/store"
-import { useQuery } from "@tanstack/react-query"
-import { getDownloadPhoto } from "../../../../../apis/apisCalls"
+import { useMutation} from "@tanstack/react-query"
+import { postCreateAtt } from "../../../../../apis/apisCalls"
+import { FormEvent, useState } from "react"
 
-export function UserCard(){
+export function UserCard({re}:any){
     const dis = useDispatch()
+    const {mutate: mutNormal} = useMutation({
+        mutationFn: (e:any)=> postCreateAtt(e),
+        onSuccess: (e:any)=>{   
+            re()
+            dis(hideModalContacts())
+            dis(showModalNotify())
+            
+        },
+        onError: (s:any)=>{
+            dis(showModalNotifyError())
+        }
+    })
+    const [email, setEmail] = useState()
+    const [cpf, setCpf] = useState()
+    const [nome, setNome] = useState()
+    const [bairro, setBairro] = useState()
+    const [cep, setCep] = useState()
+    const [cidade, setCidade] = useState()
+    const [estado, setEstado] = useState()
+    const [logradouro, setLogradouro] = useState()
+    const [numero, setNumero] = useState()
+    const [pais, setPais] = useState()
+    const [telefone, setTelefone] = useState()
     const data = useSelector((s:RootState)=>s.counter.dataContacts.data)
-    const {data: photo, isLoading} = useQuery({
-        queryKey:['photo'],
-        queryFn: ()=> getDownloadPhoto(data[0].endereco.id)})
-    return isLoading ? <h2>Carregando</h2> : (
+    const res = {
+        email: email,
+        id: data[0].id,
+        pessoa: {
+            cpf: cpf,
+            endereco: {
+            bairro: bairro,
+            cep: cep,
+            cidade: cidade,
+            estado: estado,
+            id: data[0].pessoa.id,
+            logradouro: logradouro,
+            numero: numero,
+            pais: pais,
+            },
+            foto: {
+            id: data[0].pessoa.foto.id,
+            name: data[0].pessoa.foto.name,
+            type: data[0].pessoa.foto.type,
+            },
+            id: data[0].pessoa.id,
+            nome: nome,
+        },
+        privado: data[0].privado,
+        tag: data[0].tag,
+        telefone: telefone,
+        tipoContato: data[0].tipoContato,
+        usuario: {
+            cpf: data[0].usuario.cpf,
+            dataNascimento: data[0].usuario.dataNascimento,
+            email: data[0].usuario.email,
+            id: data[0].usuario.id,
+            nome: data[0].usuario.nome,
+            password: data[0].usuario.password,
+            telefone: data[0].usuario.telefone,
+            username: data[0].usuario.username   
+            }
+}
+const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+    console.log(res)
+    mutNormal(res)
+}
+    return (
         <div className=" h-full flex justify-center">
             <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
                 <div className="flex justify-end ">
@@ -22,34 +86,50 @@ export function UserCard(){
                         <h2>X</h2>
                     </div>
                 </div>
-                <div>
+                <div className="h-[90%]">
                     {data.map((e:any)=>{
                         return (
-                            <div>
-                                <div>
-                                    <img src={photo.uri} alt="" />
-                                </div>
-                                <div className="flex justify-center">
-                                    <h2 className="text-xl"><span className="font-bold text-xl">Nome: {e.nome} </span></h2>
-                                </div>
-                                <div className="p-3 rounded-xl">
-                                    <div className="text-xl p-3 bg-[#d4d3d342] flex flex-col">
+                            <div className="h-full">
+                                <form onSubmit={handleSubmit} className="p-3 rounded-xl h-full flex flex-col gap-7">
+                                    <div className="text-xl overflow-auto h-full p-3 bg-[#d4d3d342] flex flex-col">
+                                        <span className="font-bold">Nome: </span>
+                                        <input type="text" onChange={(e:any)=>{setNome(e.target.value)}}
+                                         placeholder={e.pessoa.nome} className="placeholder:text-black outline-none pl-3" />
+                                         <span className="font-bold">CPF: </span>
+                                        <input type="text" onChange={(e:any)=>{setCpf(e.target.value)}}
+                                         placeholder={e.pessoa.cpf} className="placeholder:text-black outline-none pl-3" />
+                                         <span className="font-bold">Telefone: </span>
+                                        <input type="text" onChange={(e:any)=>{setTelefone(e.target.value)}} 
+                                        placeholder={e.telefone} className="placeholder:text-black outline-none pl-3" />
                                         <span className="font-bold">Bairro: </span>
-                                        <input type="text" value={e.endereco.bairro} className="outline-none pl-3" />
+                                        <input type="text" onChange={(e:any)=>{setBairro(e.target.value)}} 
+                                        placeholder={e.pessoa.endereco.bairro} className="placeholder:text-black outline-none pl-3" />
                                         <span className="font-bold">CEP: </span> 
-                                        <input type="text" value={e.endereco.cep} className="outline-none pl-3" />
+                                        <input type="text" onChange={(e:any)=>{setCep(e.target.value)}} 
+                                        placeholder={e.pessoa.endereco.cep} className="placeholder:text-black outline-none pl-3" />
                                         <span className="font-bold">Cidade: </span>
-                                        <input type="text" value={e.endereco.cidade} className="outline-none pl-3" />
+                                        <input type="text" onChange={(e:any)=>{setCidade(e.target.value)}} 
+                                        placeholder={e.pessoa.endereco.cidade} className="placeholder:text-black outline-none pl-3" />
                                         <span className="font-bold">Estado: </span>
-                                        <input type="text" value={e.endereco.estado} className="outline-none pl-3" />
+                                        <input type="text" onChange={(e:any)=>{setEstado(e.target.value)}} 
+                                        placeholder={e.pessoa.endereco.estado} className="placeholder:text-black outline-none pl-3" />
                                         <span className="font-bold">Logradouro: </span>
-                                        <input type="text" value={e.endereco.logradouro} className="outline-none pl-3" />
+                                        <input type="text" onChange={(e:any)=>{setLogradouro(e.target.value)}} 
+                                        placeholder={e.pessoa.endereco.logradouro} className="placeholder:text-black outline-none pl-3" />
                                         <span className="font-bold">Numero: </span>
-                                        <input type="text" value={e.endereco.numero} className="outline-none pl-3" />
+                                        <input type="text" onChange={(e:any)=>{setNumero(e.target.value)}} 
+                                        placeholder={e.pessoa.endereco.numero} className="placeholder:text-black outline-none pl-3" />
                                         <span className="font-bold">Pais: </span>
-                                        <input type="text" value={e.endereco.pais} className="outline-none pl-3" />
+                                        <input type="text" onChange={(e:any)=>{setPais(e.target.value)}} 
+                                        placeholder={e.pessoa.endereco.pais} className="placeholder:text-black outline-none pl-3" />
+                                        <span className="font-bold">Email: </span>
+                                        <input type="text" onChange={(e:any)=>{setEmail(e.target.value)}} 
+                                        placeholder={e.email} className="placeholder:text-black outline-none pl-3" />
                                     </div>
-                                </div>
+                                    <div className="flex justify-center">
+                                        <button className="bg-green-500 p-3 rounded-xl w-full font-bold">Salvar</button>
+                                    </div>
+                                </form>
                             </div>
                         )
                     })}

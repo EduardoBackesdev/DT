@@ -30,24 +30,26 @@ export function Login(){
         mutate(dataObj)
     }
     return (
-        <div className='bg h-screen w-full'>
-            <div className="text-white rounded-md w-[60%] flex flex-row pt-10 pb-10 bg-[#3f3e3e62] logincard ">
-                <div className="flex justify-center items-center flex-col w-1/2 border-r-2">
-                    <img className="imgcrs" src={logo}/>
+        <div className='bg h-screen w-full flex items-center justify-center'>
+            <div className="flex justify-center">
+                <div className="text-white rounded-md w-full flex flex-row pt-10 pb-10 bg-[#0e0d0d75] logincard ">
+                    <div className="flex justify-center items-center flex-col w-1/2 border-r-2">
+                        <img className="imgcrs" src={logo}/>
+                    </div>
+                    <form onSubmit={handleSubmit} className="flex justify-center w-1/2">
+                        <div className="w-[70%] flex flex-col gap-[80px]">
+                                <div className="userInputHold flex relative ">
+                                <FaUser className="absolute right-0 top-[50%] translate-y-[-50%] w-fit h-fit text-bluecontrast text-2xl" />
+                                <input placeholder="Usuario" name="username" type="text" className="placeholder:text-white w-full outline-none text-2xl text-white border-b-2 border-[#E5E7EB] bg-transparent" required />
+                                </div>
+                                <div className="passwordInputHold flex relative">
+                                <RiLockPasswordFill className="absolute right-0 top-[50%] translate-y-[-50%] w-fit h-fit text-bluecontrast text-2xl" />
+                                <input placeholder="Senha" name="password" autoComplete="off" type="password" className="placeholder:text-white w-full outline-none text-2xl text-white border-b-2 border-[#E5E7EB] bg-transparent" required />
+                                </div>
+                                <button className="text-center bg-[#39bb39] rounded-xl h-12 bg-bluecontrast font-bold">Login</button>
+                            </div>
+                    </form>
                 </div>
-                <form onSubmit={handleSubmit} className="flex justify-center w-1/2">
-                    <div className="w-[70%] flex flex-col gap-[80px]">
-                            <div className="userInputHold flex relative ">
-                            <FaUser className="absolute right-0 top-[50%] translate-y-[-50%] w-fit h-fit text-bluecontrast text-2xl" />
-                            <input placeholder="Usuario" name="username" type="text" className="inp w-full outline-none text-2xl text-white border-b-2 border-[#E5E7EB] bg-transparent" required />
-                            </div>
-                            <div className="passwordInputHold flex relative">
-                            <RiLockPasswordFill className="absolute right-0 top-[50%] translate-y-[-50%] w-fit h-fit text-bluecontrast text-2xl" />
-                            <input placeholder="Senha" name="password" autoComplete="off" type="password" className="inpPass w-full outline-none text-2xl text-white border-b-2 border-[#E5E7EB] bg-transparent" required />
-                            </div>
-                            <button className="text-center bg-[#39bb39] rounded-xl h-12 bg-bluecontrast font-bold">Login</button>
-                        </div>
-                </form>
             </div>
         </div>
 )
