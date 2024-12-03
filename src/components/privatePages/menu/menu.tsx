@@ -46,14 +46,16 @@ export function Menu(){
     console.log(data)
     return isLoading || isLoadingFavorites || isLoadingUser ? <h2>Carregando...</h2> : (
         <div className='bg-[#d48274] h-screen w-full'>
-            <header className="flex justify-around font-bold  text-2xl pb-3">
-                <h2 className={`${ nav === 0 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(0) }}>Home</h2>
-                <h2 className={`${ nav === 1 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(1) }}>Meu Cadastro</h2>
-                {data.object.tipos.includes("ROLE_ADMIN") && <h2 className={`${ nav === 2 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(2) }}>Usuários</h2>}
-                <h2 className={`${ nav === 3 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(3) }}>Pessoas</h2>
-                <h2 className={`${ nav === 4 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(4) }}>Contatos</h2>
-                <h2 onClick={() => { }}>Logout</h2>
-            </header>
+            <div className="flex flex-col justify-center pt-2">
+                <header className="flex justify-around font-bold  text-2xl pb-3">
+                    <h2 className={`${ nav === 0 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(0) }}>Home</h2>
+                    <h2 className={`${ nav === 1 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(1) }}>Meu Cadastro</h2>
+                    {data?.object.tipos.includes("ROLE_ADMIN") && <h2 className={`${ nav === 2 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(2) }}>Usuários</h2>}
+                    <h2 className={`${ nav === 3 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(3) }}>Pessoas</h2>
+                    <h2 className={`${ nav === 4 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(4) }}>Contatos</h2>
+                    <h2 className="cursor-pointer bg-red-500 p-1 rounded-lg" onClick={() => { }}>Logout</h2>
+                </header>
+            </div>
             <div className="bg-[#ebeaea] h-[90vh]"> 
                 {modalSearchContactsShow ? <SearchContacts/> : <></>}    
                 {modalNotify && <Notify/>}

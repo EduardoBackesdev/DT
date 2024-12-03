@@ -6,16 +6,31 @@ import logo from '../../assets/logo-metaway.png'
 import { useMutation } from "@tanstack/react-query";
 import { postLogin } from "../../../apis/apisCalls";
 import { useNavigate } from "react-router-dom";
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
 
 
-export function Login({ auth }: any) {
+
+export function Login() {
     const navigate = useNavigate()
+    const signIn = useSignIn();
     const {mutate} = useMutation({mutationFn: (e:any) => postLogin(e),
         onSuccess: (e:any)=>{
-            localStorage.setItem("token", e.accessToken)
-            localStorage.setItem("id", e.id)
-            auth(true)
-            navigate("/menu")
+            if(signIn({
+                auth: {
+                    token: e.accessToken,
+                    type: e.tokenType
+                },
+                userState: {
+                    name: e.username,
+                    uid: e.id
+                }
+            })){
+                // Redirect or do-something
+                navigate("/menu")
+            }else {
+                //Throw error
+                console.log("error")
+            }
         },
         onError: (e:any)=>{
             console.log(e)

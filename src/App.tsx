@@ -6,24 +6,35 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Menu } from './components/privatePages/menu/menu';
 import store from './store/store'
 import { Provider, } from 'react-redux';
-import { useState } from 'react';
+import createStore from 'react-auth-kit/createStore';
+import AuthProvider from 'react-auth-kit';
+import AuthOutlet from '@auth-kit/react-router/AuthOutlet'
+
+const stores = createStore({
+  authName:'token',
+  authType:'cookie',
+  cookieDomain: window.location.hostname,
+  cookieSecure: window.location.protocol === 'https:',
+});
 
 const queryClient = new QueryClient();
 
 function App() {
-  const [isAutthenticated, setIsAutthenticated] = useState(!!localStorage.getItem('token'))
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <BrowserRouter>
-            <Routes>        
-            <Route path='/' element={<Login auth={setIsAutthenticated} />} />
-            <Route path='/menu' element={isAutthenticated ? <Menu /> : <Navigate to="/" replace />} />
-            </Routes>
-        </BrowserRouter>
-      </Provider>
-    </QueryClientProvider>
+    <AuthProvider store={stores}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Routes>  
+                  <Route path='/' element={<Login />} />
+                  <Route element={<AuthOutlet fallbackPath='/' />}>   
+                    <Route path='/menu' element={ <Menu />} />
+                  </Route>  
+                </Routes> 
+            </BrowserRouter>
+        </Provider>
+      </QueryClientProvider>
+    </AuthProvider>
   )
 }
 
