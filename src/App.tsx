@@ -27,9 +27,10 @@ function App() {
             <BrowserRouter>
                 <Routes>  
                   <Route path='/' element={<Login />} />
-                  <Route element={<AuthOutlet fallbackPath='/' />}>   
-                    <Route path='/menu' element={ <Menu />} />
-                  </Route>  
+                    <Route element={<AuthOutlet fallbackPath='/' />}>   
+                      <Route path='/menu' element={ <Menu />} />
+                    </Route>  
+                  <Route/>
                 </Routes> 
             </BrowserRouter>
         </Provider>
