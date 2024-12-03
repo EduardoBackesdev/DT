@@ -10,8 +10,10 @@ import { SearchContacts } from "./home/searchContatcts"
 import { Notify } from "../../notify/notify"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../store/store"
+import { CreateUser } from "./users/createUser"
 
 export function Menu(){
+    const modalUsers = useSelector((s:RootState)=>s.counter.modalUsers.show)
     const modalNotify = useSelector((s:RootState)=> s.counter.modalNotify.show)
     const modalSearchContactsShow = useSelector((s:RootState)=> s.counter.modalSearchContacts.show)
     const [nav, setNav] = useState(0)
@@ -57,7 +59,8 @@ export function Menu(){
                 </header>
             </div>
             <div className="bg-[#ebeaea] h-[90vh]"> 
-                {modalSearchContactsShow ? <SearchContacts/> : <></>}    
+                {modalUsers && <CreateUser />}
+                {modalSearchContactsShow && <SearchContacts/>}    
                 {modalNotify && <Notify/>}
                 {renderPage(nav)}
             </div>

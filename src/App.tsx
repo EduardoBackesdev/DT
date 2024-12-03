@@ -8,7 +8,6 @@ import store from './store/store'
 import { Provider, } from 'react-redux';
 import createStore from 'react-auth-kit/createStore';
 import AuthProvider from 'react-auth-kit';
-import AuthOutlet from '@auth-kit/react-router/AuthOutlet'
 
 const stores = createStore({
   authName:'token',
@@ -26,10 +25,8 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <Routes>  
-                  <Route path='/' element={<Login />} />
-                    <Route element={<AuthOutlet fallbackPath='/' />}>   
+                  <Route path='/' element={<Login />} />  
                       <Route path='/menu' element={ <Menu />} />
-                    </Route>  
                   <Route/>
                 </Routes> 
             </BrowserRouter>

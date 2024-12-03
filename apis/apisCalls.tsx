@@ -60,4 +60,14 @@ export async function postUserSave(dados: any) {
    return data.data
 }
 
-// Função para 
+// Função para retornar os usuarios
+export async function postSearchUser(dados: {}){
+   const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/usuario/pesquisar", dados)
+   return data.data
+}
+
+// Função para criar ou atualizar usuario
+export async function postCreateOrAttUser(dados: {}){
+   const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/usuario/salvar", dados)
+   return data.data
+}

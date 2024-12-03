@@ -15,22 +15,26 @@ export function Login() {
     const signIn = useSignIn();
     const {mutate} = useMutation({mutationFn: (e:any) => postLogin(e),
         onSuccess: (e:any)=>{
-            if(signIn({
-                auth: {
-                    token: e.accessToken,
-                    type: e.tokenType
-                },
-                userState: {
-                    name: e.username,
-                    uid: e.id
-                }
-            })){
-                // Redirect or do-something
-                navigate("/menu")
-            }else {
-                //Throw error
-                console.log("error")
-            }
+            localStorage.setItem("token", e.accessToken)
+            localStorage.setItem("id", e.id)
+            navigate("/menu")
+            // if(signIn({
+            //     auth: {
+            //         token: e.accessToken,
+            //         type: e.tokenType
+            //     },
+            //     userState: {
+            //         name: e.username,
+            //         uid: e.id
+            //     }
+            // })){
+            //     // Redirect or do-something
+            //     localStorage.setItem("id", e.id)
+            //     navigate("/menu")
+            // }else {
+            //     //Throw error
+            //     console.log("error")
+            // }
         },
         onError: (e:any)=>{
             console.log(e)
