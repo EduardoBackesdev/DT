@@ -1,21 +1,20 @@
 import { UserCard } from "./userCard";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
-import { hideModalNotifyError, setModalContacts, showModalContacts, showModalNotify, showModalSearchContacts } from "../../../../store/conterSlice";
+import { hideModalNotifyError, resetTypeContact, setModalContacts, setTypeContact, showModalContacts, showModalNotify, showModalSearchContacts } from "../../../../store/conterSlice";
 import { FaSearch } from "react-icons/fa";
-import { SearchContacts } from "./searchContatcts";
 import { FaTrashAlt } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { deleteContact } from "../../../../../apis/apisCalls";
-import { Notify } from "../../../notify/notify";
 
 interface a {
     dataContatos: [],
     dataFavoritos: [],
-    re: any
+    re: any,
+    reContacts: any
 }
 
-export function Home({dataContatos, dataFavoritos, re}:a){
+export function Home({dataContatos, dataFavoritos, re, reContacts}:a){
     const dis = useDispatch()
     const {mutate} = useMutation({
         mutationFn: (e:any)=> deleteContact(e),
@@ -26,10 +25,7 @@ export function Home({dataContatos, dataFavoritos, re}:a){
             dis(hideModalNotifyError())
         }
     })
-    const modalNotify = useSelector((s:RootState)=> s.counter.modalNotify.show)
-    const modalSearchContactsShow = useSelector((s:RootState)=> s.counter.modalSearchContacts.show)
     const modalShow = useSelector((s:RootState) => s.counter.modalContacts.show)
-    
     return(
         <div className="w-full">
             <div className=" text-3xl font-bold text-[#666464]">
@@ -43,23 +39,21 @@ export function Home({dataContatos, dataFavoritos, re}:a){
                     </div>
                 </div>
             </div>
-            {modalSearchContactsShow ? <SearchContacts/> : <></>}
-            {modalShow && <UserCard re={re}/>}
-            {modalNotify && <Notify/>}
+            {modalShow && <UserCard re={re} reContacts={reContacts}/>}
             <div className="flex">
                 <div className="w-full">
                     <div className="flex justify-center">
                         <h2>Favoritos</h2>
                     </div>
                     <div className="p-5 gap-7 w-full flex flex-col">
-                    {
-                        dataFavoritos?.map((e:any)=>{
-                            console.log(e)
+                    {dataFavoritos?.map((e:any)=>{
                             return ( 
                                 <>
                                 <div onClick={()=>{
                                     dis(showModalContacts())
                                     dis(setModalContacts(e))
+                                    dis(resetTypeContact())
+                                    dis(setTypeContact("fav"))
                                 }} className="rounded-xl border w-full border-black p-2 flex justify-between">
                                     <h2 className="font-bold"><span className="text-yellow-600">Nome:</span> {e.pessoa.nome}</h2>
                                     <FaTrashAlt onClick={()=>{
@@ -83,6 +77,8 @@ export function Home({dataContatos, dataFavoritos, re}:a){
                                 <div onClick={()=>{
                                     dis(showModalContacts())
                                     dis(setModalContacts(e))
+                                    dis(resetTypeContact())
+                                    dis(setTypeContact("normal"))
                                 }} className="rounded-xl border w-full border-black p-2 flex justify-between">
                                     <h2 className="font-bold"><span className="text-yellow-600">Nome:</span> {e.pessoa.nome}</h2>
                                     <FaTrashAlt onClick={()=>{

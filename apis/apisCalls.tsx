@@ -47,3 +47,17 @@ export async function postCreateAtt(dados:any){
    const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/contato/salvar", dados)
    return data.data
 }
+
+// Funcao para retornar os detalhes do usuario
+export async function getReturnDataUser(dado: number){
+   const data = await axios.get("https://demometaway.vps-kinghost.net:8485/api/usuario/buscar/" + dado)
+   return data.data
+}
+
+// Funcao para criar ou atualizar o cadastro
+export async function postUserSave(dados: any) {
+   const data = await axios.put("https://demometaway.vps-kinghost.net:8485/api/usuario/atualizar", dados)
+   return data.data
+}
+
+// Funcao para 

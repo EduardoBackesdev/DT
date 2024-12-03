@@ -4,7 +4,7 @@ import { hideModalNotify } from "../../store/conterSlice"
 export function Notify(){
     const dis = useDispatch()
     return (
-        <div className=" h-full flex justify-center">
+        <div className="h-full w-full flex justify-center mt-10 fixed">
             <div className="anim h-[40%] w-[50%] bg-[#d48274] fixed rounded-2xl">
                 <div className="w-full h-full flex items-center justify-center">
                     <div className="flex flex-col gap-6">

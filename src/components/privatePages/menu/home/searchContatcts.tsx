@@ -18,7 +18,7 @@ export function SearchContacts(){
         mutate('')
     }, [])
     return (
-        <div className=" h-full flex justify-center">
+        <div className="h-full w-full flex justify-center mt-10 fixed">
             <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
                 <div className="flex justify-end ">
                     <div  onClick={()=>{

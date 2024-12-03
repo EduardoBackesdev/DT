@@ -3,13 +3,14 @@ import { hideModalContacts, resetModalContacts, showModalNotify, showModalNotify
 import './home.css'
 import { RootState } from "../../../../store/store"
 import { useMutation} from "@tanstack/react-query"
-import { postCreateAtt } from "../../../../../apis/apisCalls"
+import { postCreateAtt, postCreateAttFav } from "../../../../../apis/apisCalls"
 import { FormEvent, useState } from "react"
 
-export function UserCard({re}:any){
+export function UserCard({re, reContacts}:any){
+    const tipo = useSelector((s:RootState)=>s.counter.tipeContact.tipo)
     const dis = useDispatch()
-    const {mutate: mutNormal} = useMutation({
-        mutationFn: (e:any)=> postCreateAtt(e),
+    const {mutate: mutFav} = useMutation({
+        mutationFn: (e:any)=> postCreateAttFav(e),
         onSuccess: (e:any)=>{   
             re()
             dis(hideModalContacts())
@@ -20,18 +21,30 @@ export function UserCard({re}:any){
             dis(showModalNotifyError())
         }
     })
-    const [email, setEmail] = useState()
-    const [cpf, setCpf] = useState()
-    const [nome, setNome] = useState()
-    const [bairro, setBairro] = useState()
-    const [cep, setCep] = useState()
-    const [cidade, setCidade] = useState()
-    const [estado, setEstado] = useState()
-    const [logradouro, setLogradouro] = useState()
-    const [numero, setNumero] = useState()
-    const [pais, setPais] = useState()
-    const [telefone, setTelefone] = useState()
+    const {mutate: mutNormal} = useMutation({
+        mutationFn: (e:any)=> postCreateAtt(e),
+        onSuccess: (e:any)=>{   
+            reContacts()
+            dis(hideModalContacts())
+            dis(showModalNotify())
+            
+        },
+        onError: (s:any)=>{
+            dis(showModalNotifyError())
+        }
+    })
     const data = useSelector((s:RootState)=>s.counter.dataContacts.data)
+    const [email, setEmail] = useState(data[0].email)
+    const [cpf, setCpf] = useState(data[0].pessoa.cpf)
+    const [nome, setNome] = useState(data[0].pessoa.nome)
+    const [bairro, setBairro] = useState(data[0].pessoa.endereco.bairro)
+    const [cep, setCep] = useState(data[0].pessoa.endereco.cep)
+    const [cidade, setCidade] = useState(data[0].pessoa.endereco.cidade)
+    const [estado, setEstado] = useState(data[0].pessoa.endereco.estado)
+    const [logradouro, setLogradouro] = useState(data[0].pessoa.endereco.logradouro)
+    const [numero, setNumero] = useState(data[0].pessoa.endereco.numero)
+    const [pais, setPais] = useState(data[0].pessoa.endereco.pais)
+    const [telefone, setTelefone] = useState(data[0].telefone)
     const res = {
         email: email,
         id: data[0].id,
@@ -72,9 +85,17 @@ export function UserCard({re}:any){
 }
 const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
-    console.log(res)
     mutNormal(res)
 }
+
+const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+    mutFav(res)
+}
+
+
+
+
     return (
         <div className=" h-full flex justify-center">
             <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
@@ -90,7 +111,7 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
                     {data.map((e:any)=>{
                         return (
                             <div className="h-full">
-                                <form onSubmit={handleSubmit} className="p-3 rounded-xl h-full flex flex-col gap-7">
+                                <form onSubmit={tipo === "normal" ? handleSubmit : handleSubmitFav} className="p-3 rounded-xl h-full flex flex-col gap-7">
                                     <div className="text-xl overflow-auto h-full p-3 bg-[#d4d3d342] flex flex-col">
                                         <span className="font-bold">Nome: </span>
                                         <input type="text" onChange={(e:any)=>{setNome(e.target.value)}}

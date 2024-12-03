@@ -14,7 +14,10 @@ const initialState = {
         show: false
     },
     dataContacts: {
-        data: [{}] as any[]
+        data: [{}] as any[],
+    },
+    tipeContact: {
+        tipo: ""
     }
 }
 
@@ -22,6 +25,12 @@ const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    setTypeContact: (state, p) =>{
+        state.tipeContact.tipo = p.payload
+    },
+    resetTypeContact: (state) =>{
+        state.tipeContact.tipo = ""
+    },
     showModalNotifyError: (state)=>{
         state.modalNotify.show = true
     },
@@ -66,7 +75,9 @@ export const {
     hideModalSearchContacts,
     showModalSearchContacts,
     hideModalNotify,
-    showModalNotify
+    showModalNotify,
+    resetTypeContact,
+    setTypeContact
 } = counterSlice.actions;
 
 export default counterSlice.reducer;
