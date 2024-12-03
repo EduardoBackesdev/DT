@@ -24,9 +24,9 @@ export function Users() {
                 <div className="flex justify-center text-3xl font-bold text-[#666464]">
                     <h2>Lista de usuários</h2>
                 </div>
-                <div onClick={()=>{dis(showModalUsers())}} className="flex justify-center gap-3">
-                    <p className="text-lg">Clique para criar novo usuário</p>
-                    <FaUser className="cursor-pointer text-2xl text-green-500" />
+                <div className="flex justify-center gap-3">
+                    <p onClick={() => { dis(showModalUsers()) }} className="text-lg">Clique para criar novo usuário</p>
+                    <FaUser onClick={() => { dis(showModalUsers()) }} className="cursor-pointer text-2xl text-green-500" />
                 </div>
             </div>
             <div className="flex justify-center">
