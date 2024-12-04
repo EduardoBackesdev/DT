@@ -7,10 +7,16 @@ import { useMutation } from "@tanstack/react-query";
 import { postLogin } from "../../../apis/apisCalls";
 import { useNavigate } from "react-router-dom";
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { ErrorLogin } from "./errorLogin";
+import { showLoginError } from "../../store/conterSlice";
 
 
 
 export function Login() {
+    const dis = useDispatch()
+    const error = useSelector((s:RootState)=>s.counter.loginError.show)
     const [manter, setManter] = useState(false)
     const navigate = useNavigate()
     const signIn = useSignIn();
@@ -34,7 +40,7 @@ export function Login() {
              }
         },
         onError: (e:any)=>{
-            console.log(e)
+            dis(showLoginError())
         }
      })
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -48,7 +54,8 @@ export function Login() {
     }
     return (
         <div className='bg h-screen w-full flex items-center justify-center'>
-            <div className="flex justify-center">
+            {error && <ErrorLogin/>}
+            {!error && <div className="flex justify-center">
                 <div className="text-white rounded-md w-full flex flex-row pt-10 pb-10 bg-[#0e0d0d75] logincard ">
                     <div className="flex justify-center items-center flex-col w-1/2 border-r-2">
                         <img className="imgcrs" src={logo}/>
@@ -71,7 +78,8 @@ export function Login() {
                             </div>
                     </form>
                 </div>
-            </div>
+            </div>}
+            
         </div>
 )
 }

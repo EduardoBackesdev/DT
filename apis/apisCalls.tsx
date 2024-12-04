@@ -78,3 +78,10 @@ export async function returnPersonsFilter(dado: {}){
    return data.data
 
 }
+
+// Função para alterar senha proprio user
+export async function alterOwnPass(dado: {}){
+   const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/usuario/alterarSenha", dado)
+   return data.data
+
+}

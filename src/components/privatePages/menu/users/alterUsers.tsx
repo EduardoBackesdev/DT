@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { hideModalAlterUsers, resetIdAlterUser, showModalNotify, showModalNotifyError } from "../../../../store/conterSlice"
+import { hideModalAlterUsers,  resetIdAlterUser, showModalNotify, showModalNotifyError } from "../../../../store/conterSlice"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { RootState } from "../../../../store/store"
 import { getReturnDataUser, postCreateOrAttUser } from "../../../../../apis/apisCalls"
@@ -26,6 +26,7 @@ export function AlterUsers(){
         queryFn: ()=> getReturnDataUser(id)
     })
     const arr = [data]
+    console.log(data)
     const [nome, setNome] = useState(arr[0]?.object.usuario.nome)
     const [tipo, setTipo] = useState()
     const [telefone, setTelefone] = useState(arr[0]?.object.usuario.telefone)
@@ -34,7 +35,6 @@ export function AlterUsers(){
     const [usuario, setUsuario] = useState(arr[0]?.object.usuario.username)
     const [senha, setSenha] = useState("")
     const [email, setEmail] = useState(arr[0]?.object.usuario.email)
-    console.log(nome)
     const res = {
         tipos: [tipo],
         usuario: {

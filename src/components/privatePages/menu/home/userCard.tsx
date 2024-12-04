@@ -5,6 +5,7 @@ import { RootState } from "../../../../store/store"
 import { useMutation, useQuery} from "@tanstack/react-query"
 import { getDownloadPhoto, postCreateAtt, postCreateAttFav } from "../../../../../apis/apisCalls"
 import { FormEvent, useState } from "react"
+import InputMask from 'react-input-mask'
 
 export function UserCard({re, reContacts}:any){
     const tipo = useSelector((s:RootState)=>s.counter.tipeContact.tipo)
@@ -61,9 +62,9 @@ export function UserCard({re, reContacts}:any){
             pais: pais,
             },
             foto: {
-            id: data[0].pessoa.foto.id,
-            name: data[0].pessoa.foto.name,
-            type: data[0].pessoa.foto.type,
+                id: data[0].pessoa.foto.id,
+                name: data[0].pessoa.foto.name,
+                type: data[0].pessoa.foto.type,
             },
             id: data[0].pessoa.id,
             nome: nome,
@@ -122,11 +123,21 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
                                         <input type="text" onChange={(e:any)=>{setNome(e.target.value)}}
                                          placeholder={e.pessoa.nome} className="placeholder:text-black outline-none pl-3" />
                                          <span className="font-bold">CPF: </span>
-                                        <input type="text" onChange={(e:any)=>{setCpf(e.target.value)}}
-                                         placeholder={e.pessoa.cpf} className="placeholder:text-black outline-none pl-3" />
+                                         <InputMask
+                                        mask="999.999.999-99"
+                                        value={cpf}
+                                        onChange={(e:any) => setCpf(e.target.value)}
+                                        className="placeholder:text-black w-full rounded-xl pl-3"
+                                        placeholder="Digite o CPF"
+                                        /> 
                                          <span className="font-bold">Telefone: </span>
-                                        <input type="text" onChange={(e:any)=>{setTelefone(e.target.value)}} 
-                                        placeholder={e.telefone} className="placeholder:text-black outline-none pl-3" />
+                                         <InputMask
+                                            mask="(99) 99999-9999"
+                                            value={telefone}
+                                            onChange={(e:any) => setTelefone(e.target.value)}
+                                            className="placeholder:text-black w-full rounded-xl pl-3"
+                                            placeholder="(XX) XXXXX-XXXX"
+                                            /> 
                                         <span className="font-bold">Bairro: </span>
                                         <input type="text" onChange={(e:any)=>{setBairro(e.target.value)}} 
                                         placeholder={e.pessoa.endereco.bairro} className="placeholder:text-black outline-none pl-3" />
