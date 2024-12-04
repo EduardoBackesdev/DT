@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    modalAlterPersons: {
+      show: false  
+    },
+    personsId: {
+        id: 0
+    },
     loginError: {
         show: false
     },
@@ -37,6 +43,18 @@ const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    showModalAlterPersons: (state)=>{
+        state.modalAlterPersons.show = true  
+    },
+    hideModalAlterPersons: (state)=>{
+        state.modalAlterPersons.show = false  
+    },
+    setPersonsId: (state, p)=>{
+        state.personsId.id = p.payload
+    },
+    resetPersonsId: (state)=>{
+        state.personsId.id = 0
+    },
     showLoginError:(state)=>{
         state.loginError.show = true
     },
@@ -121,7 +139,11 @@ export const {
     resetIdAlterUser,
     setIdAlterUser,
     hideLoginError,
-    showLoginError
+    showLoginError,
+    resetPersonsId,
+    setPersonsId,
+    hideModalAlterPersons,
+    showModalAlterPersons
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

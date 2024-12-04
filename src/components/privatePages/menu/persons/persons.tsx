@@ -1,8 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { returnPersonsFilter } from "../../../../../apis/apisCalls";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setPersonsId, showModalAlterPersons } from "../../../../store/conterSlice";
 
 export function Persons() {
+    const dis = useDispatch()
     const [data, setData] = useState<[]>()
     const {mutate} = useMutation({
         mutationKey: ['filterPersons'],
@@ -28,9 +31,12 @@ export function Persons() {
 
             <div className="h-[90%] overflow-auto">
                 {data?.map((e:any)=>{
+                    console.log(e)
                     return (
                         <div className="p-3">
                             <div onClick={()=>{
+                                dis(setPersonsId(e.id))
+                                dis(showModalAlterPersons())
                                 }} className="rounded-xl border w-full border-black p-2 ">
                                     <h2 className="font-bold"><span className="text-yellow-600">Nome:</span> {e.nome}</h2>
                                 </div> 

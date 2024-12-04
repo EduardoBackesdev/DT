@@ -13,8 +13,10 @@ import { RootState } from "../../../store/store"
 import { CreateUser } from "./users/createUser"
 import { ErrorNotify } from "../../notify/errorNotify"
 import { AlterUsers } from "./users/alterUsers"
+import { AlterPersons } from "./persons/alterPersons"
 
 export function Menu(){
+    const modalAlterPersons = useSelector((s:RootState)=>s.counter.modalAlterPersons.show)
     const modalAlterUsers = useSelector((s:RootState)=>s.counter.modalAlterUsers.show)
     const modalUsers = useSelector((s:RootState)=>s.counter.modalUsers.show)
     const modalNotify = useSelector((s:RootState)=> s.counter.modalNotify.show)
@@ -67,6 +69,7 @@ export function Menu(){
                 {modalSearchContactsShow && <SearchContacts/>}    
                 {modalNotify && <Notify/>}
                 {modalNotifyError && <ErrorNotify/>}
+                {modalAlterPersons && <AlterPersons/>}
                 {renderPage(nav)}
             </div>
 

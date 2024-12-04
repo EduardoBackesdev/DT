@@ -85,3 +85,9 @@ export async function alterOwnPass(dado: {}){
    return data.data
 
 }
+
+// Função que retorna os dados da pessoa
+export async function returnDataPersons(dados: number){
+   const data = await axios.get("https://demometaway.vps-kinghost.net:8485/api/pessoa/buscar/" + dados)
+   return data.data
+}
