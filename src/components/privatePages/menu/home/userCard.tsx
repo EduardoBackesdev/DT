@@ -62,9 +62,9 @@ export function UserCard({re, reContacts}:any){
             pais: pais,
             },
             foto: {
-                id: data[0].pessoa.foto.id,
-                name: data[0].pessoa.foto.name,
-                type: data[0].pessoa.foto.type,
+                id: data[0].pessoa.foto?.id,
+                name: data[0].pessoa.foto?.name,
+                type: data[0].pessoa.foto?.type,
             },
             id: data[0].pessoa.id,
             nome: nome,
@@ -72,7 +72,7 @@ export function UserCard({re, reContacts}:any){
         privado: data[0].privado,
         tag: data[0].tag,
         telefone: telefone,
-        tipoContato: data[0].tipoContato,
+        tipoContato: data[0]?.tipoContato,
         usuario: {
             cpf: data[0].usuario.cpf,
             dataNascimento: data[0].usuario.dataNascimento,
@@ -80,7 +80,7 @@ export function UserCard({re, reContacts}:any){
             id: data[0].usuario.id,
             nome: data[0].usuario.nome,
             password: data[0].usuario.password,
-            telefone: data[0].usuario.telefone,
+            telefone: data[0].usuario?.telefone,
             username: data[0].usuario.username   
             }
 }
