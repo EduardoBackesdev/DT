@@ -11,10 +11,14 @@ import { Notify } from "../../notify/notify"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../store/store"
 import { CreateUser } from "./users/createUser"
+import { ErrorNotify } from "../../notify/errorNotify"
+import { AlterUsers } from "./users/alterUsers"
 
 export function Menu(){
+    const modalAlterUsers = useSelector((s:RootState)=>s.counter.modalAlterUsers.show)
     const modalUsers = useSelector((s:RootState)=>s.counter.modalUsers.show)
     const modalNotify = useSelector((s:RootState)=> s.counter.modalNotify.show)
+    const modalNotifyError = useSelector((s:RootState)=> s.counter.modalNotifyError.show)
     const modalSearchContactsShow = useSelector((s:RootState)=> s.counter.modalSearchContacts.show)
     const [nav, setNav] = useState(0)
     const [dados, setDados] = useState(localStorage.getItem('id'))
@@ -45,7 +49,6 @@ export function Menu(){
                 return <Contacts />;      
         }
     };
-    console.log(data)
     return isLoading || isLoadingFavorites || isLoadingUser ? <h2>Carregando...</h2> : (
         <div className='bg-[#d48274] h-screen w-full'>
             <div className="flex flex-col justify-center pt-2">
@@ -60,8 +63,10 @@ export function Menu(){
             </div>
             <div className="bg-[#ebeaea] h-[90vh]"> 
                 {modalUsers && <CreateUser />}
+                {modalAlterUsers && <AlterUsers/>}
                 {modalSearchContactsShow && <SearchContacts/>}    
                 {modalNotify && <Notify/>}
+                {modalNotifyError && <ErrorNotify/>}
                 {renderPage(nav)}
             </div>
 

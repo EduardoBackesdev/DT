@@ -2,8 +2,8 @@ import { useDispatch, useSelector} from "react-redux"
 import { hideModalContacts, resetModalContacts, showModalNotify, showModalNotifyError } from "../../../../store/conterSlice"
 import './home.css'
 import { RootState } from "../../../../store/store"
-import { useMutation} from "@tanstack/react-query"
-import { postCreateAtt, postCreateAttFav } from "../../../../../apis/apisCalls"
+import { useMutation, useQuery} from "@tanstack/react-query"
+import { getDownloadPhoto, postCreateAtt, postCreateAttFav } from "../../../../../apis/apisCalls"
 import { FormEvent, useState } from "react"
 
 export function UserCard({re, reContacts}:any){
@@ -83,6 +83,10 @@ export function UserCard({re, reContacts}:any){
             username: data[0].usuario.username   
             }
 }
+const {data:photo} = useQuery({
+    queryKey: ['photo'],
+    queryFn: ()=>getDownloadPhoto(data[0].pessoa.id)
+})
 const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     mutNormal(res)
@@ -92,8 +96,6 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     mutFav(res)
 }
-
-
 
 
     return (
@@ -107,12 +109,15 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
                         <h2>X</h2>
                     </div>
                 </div>
-                <div className="h-[90%]">
+                <div className="h-[80%]">
+                    <div className="flex justify-center">
+                        <img className="h-16 w-full " src="" alt="" />
+                    </div>
                     {data.map((e:any)=>{
                         return (
                             <div className="h-full">
                                 <form onSubmit={tipo === "normal" ? handleSubmit : handleSubmitFav} className="p-3 rounded-xl h-full flex flex-col gap-7">
-                                    <div className="text-xl overflow-auto h-full p-3 bg-[#d4d3d342] flex flex-col">
+                                    <div className="text-xl overflow-auto h-full p-3 bg-[#d4d3d342] flex flex-col gap-3">
                                         <span className="font-bold">Nome: </span>
                                         <input type="text" onChange={(e:any)=>{setNome(e.target.value)}}
                                          placeholder={e.pessoa.nome} className="placeholder:text-black outline-none pl-3" />
@@ -146,10 +151,11 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
                                         <span className="font-bold">Email: </span>
                                         <input type="text" onChange={(e:any)=>{setEmail(e.target.value)}} 
                                         placeholder={e.email} className="placeholder:text-black outline-none pl-3" />
-                                    </div>
-                                    <div className="flex justify-center">
+                                        <div className="flex justify-center">
                                         <button className="bg-green-500 p-3 rounded-xl w-full font-bold">Salvar</button>
                                     </div>
+                                    </div>
+                                    
                                 </form>
                             </div>
                         )

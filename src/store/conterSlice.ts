@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    idAlterUser: {
+        id: 0
+    },
+    modalAlterUsers: {
+        show: false
+    },
     modalUsers: {
         show: false
     },
@@ -28,6 +34,18 @@ const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    setIdAlterUser: (state, p)=>{
+        state.idAlterUser.id = p.payload
+    },
+    resetIdAlterUser: (state)=>{
+        state.idAlterUser.id = NaN
+    },
+    showModalAlterUsers:(state)=>{
+        state.modalAlterUsers.show = true
+    },
+    hideModalAlterUsers:(state)=>{
+        state.modalAlterUsers.show = false
+    },
     showModalUsers: (state)=>{
         state.modalUsers.show = true
     },
@@ -41,10 +59,10 @@ const counterSlice = createSlice({
         state.tipeContact.tipo = ""
     },
     showModalNotifyError: (state)=>{
-        state.modalNotify.show = true
+        state.modalNotifyError.show = true
     },
     hideModalNotifyError: (state)=>{
-        state.modalNotify.show = false
+        state.modalNotifyError.show = false
     },
     showModalNotify: (state)=>{
         state.modalNotify.show = true
@@ -88,7 +106,11 @@ export const {
     resetTypeContact,
     setTypeContact,
     showModalUsers,
-    hideModalUsers
+    hideModalUsers,
+    hideModalAlterUsers,
+    showModalAlterUsers,
+    resetIdAlterUser,
+    setIdAlterUser
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

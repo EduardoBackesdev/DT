@@ -71,3 +71,10 @@ export async function postCreateOrAttUser(dados: {}){
    const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/usuario/salvar", dados)
    return data.data
 }
+
+// Função para retornar pessoas pelo filtro
+export async function returnPersonsFilter(dado: {}){
+   const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/pessoa/pesquisar", dado)
+   return data.data
+
+}
