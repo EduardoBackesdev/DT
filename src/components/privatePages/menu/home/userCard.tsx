@@ -148,7 +148,7 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
                 </div>
                 <div className="h-[70%]">
                     <div className="flex justify-center">
-                        <img className="h-16 w-full " src={photo} alt="" />
+                        <img className="h-16 w-full " src={window.URL.createObjectURL(photo)} alt="" />
                     </div>
                     {data.map((e:any)=>{
                         return (
