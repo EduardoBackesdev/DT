@@ -1,7 +1,7 @@
 import axios from "./axiosConfig";
 
 // Função para login
-export async function postLogin(dados:any){
+export async function postLogin(dados:{}){
    const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/auth/login", dados)
    return data.data
 }
@@ -25,31 +25,31 @@ export async function getDownloadPhoto(dados: any){
 }
 
 // Função para retornar pesquisa de contato
-export async function postSearchAllContacts(dados:any){
+export async function postSearchAllContacts(dados:{}){
    const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/contato/pesquisar", dados)
    return data.data
 }
 
 // Função para remover o cadastro do contato
-export async function deleteContact(dados:any){
+export async function deleteContact(dados:number){
    const data = await axios.delete("https://demometaway.vps-kinghost.net:8485/api/contato/remover/" + dados)
    return data.data
 }
 
 // Função para remover o cadastro da pessoa
-export async function deletePerson(dados:any){
+export async function deletePerson(dados:number){
    const data = await axios.delete("https://demometaway.vps-kinghost.net:8485/api/pessoa/remover/" + dados)
    return data.data
 }
 
 // Função para criar ou atualizar dados de contato (FAVORITO)
-export async function postCreateAttFav(dados:any){
+export async function postCreateAttFav(dados:{}){
    const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/favorito/salvar", dados)
    return data.data
 }
 
 // Função para criar ou atualizar dados de contato (CONTATO)
-export async function postCreateAtt(dados:any){
+export async function postCreateAtt(dados:{}){
    const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/contato/salvar", dados)
    return data.data
 }

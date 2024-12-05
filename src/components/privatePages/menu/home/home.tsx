@@ -1,8 +1,8 @@
 import { UserCard } from "./userCard";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
-import { hideModalNotifyError, resetTypeContact, setModalContacts, setTypeContact, showModalContacts, showModalNotify, showModalSearchContacts } from "../../../../store/conterSlice";
-import { FaSearch } from "react-icons/fa";
+import { hideModalNotifyError, resetTypeContact, setModalContacts, setTypeContact, showModalContacts, showModalCreateContact, showModalNotify, showModalNotifyError, showModalSearchContacts } from "../../../../store/conterSlice";
+import { FaSearch, FaUser } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { deleteContact } from "../../../../../apis/apisCalls";
@@ -18,12 +18,13 @@ interface a {
 export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
     const dis = useDispatch()
     const {mutate} = useMutation({
-        mutationFn: (e:any)=> deleteContact(e),
-        onSuccess: (s:any)=>{
+        mutationFn: (e:number)=> deleteContact(e),
+        onSuccess: ()=>{
             dis(showModalNotify())
         },
-        onError: (s:any)=>{
-            dis(hideModalNotifyError())
+        onError: ()=>{
+            console.log("errrinho")
+            dis(showModalNotifyError())
         }
     })
     const modalShow = useSelector((s:RootState) => s.counter.modalContacts.show)
@@ -36,7 +37,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
                 <div className="flex justify-center">
                     <p className="text-lg">Clique no nome para alterar... ou pesquise pelo contato</p>
                     <div className="pl-2 text-2xl">
-                        <FaSearch onClick={()=> {dis(showModalSearchContacts())}} className="text-green-600" />
+                        <FaSearch onClick={()=> {dis(showModalSearchContacts())}} className="text-green-600 cursor-pointer" />
                     </div>
                 </div>
             </div>
@@ -44,7 +45,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
             <div className="flex">
                 { page != 4 && <div className="w-full">
                     <div className="flex justify-center">
-                        <h2>Favoritos</h2>
+                        <h2 className="font-bold">Favoritos</h2>
                     </div>
                     <div className="p-5 gap-7 w-full flex flex-col">
                     {dataFavoritos?.map((e:any)=>{
@@ -59,7 +60,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
                                 }} className="font-bold"><span className="text-yellow-600">Nome:</span> {e.pessoa.nome}</h2>
                                     <FaTrashAlt onClick={()=>{
                                         mutate(e.id)
-                                        }} className="text-red-600 text-xl" />
+                                        }} className="text-red-600 text-xl cursor-pointer" />
                                 </div> 
                                 </>
                             )
@@ -68,8 +69,12 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
                     </div>
                 </div>}
                 <div className="w-full" >
-                    <div className="flex justify-center">
-                        <h2>Contatos</h2>
+                    <div className="flex justify-center gap-3">
+                        <h2 className="font-bold">Criar Contato</h2>
+                        <FaUser onClick={()=>{
+                            dis(showModalCreateContact())
+                            dis(setModalContacts(dataContatos))
+                        }} className="cursor-pointer text-2xl text-green-500" />
                     </div>
                     <div className="p-5 gap-7 w-full flex flex-col">
                     {dataContatos?.map((e:any)=>{
@@ -84,7 +89,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
                                 }} className="font-bold cursor-pointer"><span className="text-yellow-600">Nome:</span> {e.pessoa.nome}</h2>
                                     <FaTrashAlt onClick={()=>{
                                         mutate(e.id)
-                                    }} className="text-red-600 text-xl" />
+                                    }} className="text-red-600 text-xl cursor-pointer" />
                                 </div>                               
                                 </>
                             )

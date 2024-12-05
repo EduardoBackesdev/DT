@@ -9,7 +9,7 @@ export function Persons() {
     const dis = useDispatch()
     const {mutate:del} = useMutation({
         mutationKey: ['deletePerson'],
-        mutationFn: (e:any)=> deletePerson(e),
+        mutationFn: (e:number)=> deletePerson(e),
         onSuccess: ()=>{
             dis(showModalNotify())
         },

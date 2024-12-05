@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    createNewContatc: {
+        show: false
+    },
     createPersons: {
         show: false
     },
@@ -46,6 +49,12 @@ const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    showModalCreateContact: (state)=>{
+        state.createNewContatc.show = true
+    },
+    hideModalCreateContact: (state)=>{
+        state.createNewContatc.show = false
+    },
     showModalCreatePersons: (state)=>{
         state.createPersons.show = true
     },
@@ -154,7 +163,9 @@ export const {
     hideModalAlterPersons,
     showModalAlterPersons,
     hideModalCreatePersons,
-    showModalCreatePersons
+    showModalCreatePersons,
+    hideModalCreateContact,
+    showModalCreateContact
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

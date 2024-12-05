@@ -9,7 +9,7 @@ export function SearchContacts(){
     const dis = useDispatch()
     const [data, setData] = useState([])
     const {mutate} = useMutation({
-        mutationFn: (e:any)=> postSearchAllContacts(e),
+        mutationFn: (e:{})=> postSearchAllContacts(e),
         onSuccess: (e:any)=>{
             setData(e)
         }

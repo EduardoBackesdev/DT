@@ -90,7 +90,7 @@ export function MyRegister() {
                         return (
                             <div className="flex flex-col gap-4">
                                 <div className="flex gap-3 ">
-                                    <h2 className="font-bold">Nome: </h2><span>{e.object.usuario.nome}</span><input onChange={(e:any)=>{setNome(e.target.value)}} className="placeholder:text-black w-[50%] rounded-xl pl-3" type="text" />
+                                    <h2 className="font-bold">Nome: </h2><span>{e.object.usuario.nome}</span><input placeholder="Digite o novo nome" onChange={(e:any)=>{setNome(e.target.value)}} className="placeholder:text-black w-[50%] rounded-xl pl-3" type="text" />
                                 </div>
                                 <div className="flex gap-3">
                                     <h2 className="font-bold">Tipo: </h2><span>{e.object.tipos.includes("ROLE_ADMIN") ? "Administrador" : "Usuario"}</span>
@@ -138,7 +138,7 @@ export function MyRegister() {
                                 <div className="flex gap-3">
                                 <h2 className="font-bold">Username:</h2> 
                                 <span>{e.object.usuario.username}</span>
-                                <input onChange={(e:any)=>{setUsername(e.target.value)}} className="placeholder:text-black w-full rounded-xl pl-3" type="text" />
+                                <input placeholder="Digite o novo username" onChange={(e:any)=>{setUsername(e.target.value)}} className="placeholder:text-black w-full rounded-xl pl-3" type="text" />
                                 </div>
                                 <div className="flex gap-3">
                                     <h2 className="font-bold">Senha:</h2><input minLength={8} onChange={(e:any)=>{setPass(e.target.value)}} className="placeholder:text-black w-[50%] rounded-xl pl-3" placeholder="Digite a nova senha" type="password" />  

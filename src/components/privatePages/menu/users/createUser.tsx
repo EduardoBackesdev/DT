@@ -64,7 +64,7 @@ export function CreateUser(){
                         <div className="w-full flex flex-col gap-2 p-3">
                             <div className="flex">
                                 <h2>Nome</h2>
-                                <input className="w-full rounded-lg" onChange={(e: any) => setNome(e.target.value)} type="text" required />
+                                <input placeholder="Digite o novo nome" className="w-full rounded-lg pl-3 placeholder:text-black" onChange={(e: any) => setNome(e.target.value)} type="text" required />
                             </div>
                             <div className="flex">
                             <h2 >Telefone:</h2>
@@ -78,7 +78,7 @@ export function CreateUser(){
                             </div>
                             <div className="flex ">
                                 <h2>Email:</h2>
-                                <input className="w-full rounded-xl" onChange={(e: any) => setEmail(e.target.value)} type="text" required />
+                                <input placeholder="Digite o novo email" className="w-full rounded-xl pl-3 placeholder:text-black" onChange={(e: any) => setEmail(e.target.value)} type="text" required />
                             </div>
                             <div className="flex">
                                 <h2>Nascimento:</h2>
@@ -101,7 +101,7 @@ export function CreateUser(){
                             </div>
                             <div className="flex">
                                 <h2>Usuário:</h2>
-                                <input className="w-full rounded-xl" onChange={(e: any) => setUsuario(e.target.value)} type="text" required />
+                                <input placeholder="Digite o usuário" className="w-full rounded-xl placeholder:text-black pl-3" onChange={(e: any) => setUsuario(e.target.value)} type="text" required />
                             </div>
                             <select onChange={(e: any) => { setTipo(e.target.value) }} required>
                                 <option value="">SELECIONE O TIPO DE USUARIO</option>
@@ -110,7 +110,7 @@ export function CreateUser(){
                             </select>
                             <div className="flex">
                                 <h2>Senha:</h2>
-                                <input minLength={8} className="w-full rounded-xl" onChange={(e: any) => setSenha(e.target.value)} type="password" required />   
+                                <input placeholder="Digite a senha"  minLength={8} className="w-full rounded-xl pl-3 placeholder:text-black" onChange={(e: any) => setSenha(e.target.value)} type="password" required />   
                             </div>
                             {errorSenha &&
                             <div className="flex justify-center">

@@ -20,7 +20,7 @@ export function Login() {
     const [manter, setManter] = useState(false)
     const navigate = useNavigate()
     const signIn = useSignIn();
-    const {mutate} = useMutation({mutationFn: (e:any) => postLogin(e),
+    const {mutate} = useMutation({mutationFn: (e:{}) => postLogin(e),
         onSuccess: (e:any)=>{
              if(signIn({
                  auth: {

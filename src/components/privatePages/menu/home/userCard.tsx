@@ -11,11 +11,11 @@ export function UserCard({re, reContacts}:any){
     const tipo = useSelector((s:RootState)=>s.counter.tipeContact.tipo)
     const dis = useDispatch()
     const {mutate: mutFav} = useMutation({
-        mutationFn: (e:any)=> postCreateAttFav(e),
-        onSuccess: (e:any)=>{   
-            re()
+        mutationFn: (e:{})=> postCreateAttFav(e),
+        onSuccess: ()=>{   
             dis(hideModalContacts())
             dis(showModalNotify())
+            re()
             
         },
         onError: (s:any)=>{
@@ -23,7 +23,7 @@ export function UserCard({re, reContacts}:any){
         }
     })
     const {mutate: mutNormal} = useMutation({
-        mutationFn: (e:any)=> postCreateAtt(e),
+        mutationFn: (e:{})=> postCreateAtt(e),
         onSuccess: (e:any)=>{   
             reContacts()
             dis(hideModalContacts())

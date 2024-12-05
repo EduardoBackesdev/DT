@@ -5,7 +5,6 @@ import { Home } from "./home/home"
 import { MyRegister } from "./myRegister/myRegister"
 import { Users } from "./users/users"
 import { Persons } from "./persons/persons"
-import { Contacts } from "./contacts/contacts"
 import { SearchContacts } from "./home/searchContatcts"
 import { Notify } from "../../notify/notify"
 import { useSelector } from "react-redux"
@@ -15,8 +14,10 @@ import { ErrorNotify } from "../../notify/errorNotify"
 import { AlterUsers } from "./users/alterUsers"
 import { AlterPersons } from "./persons/alterPersons"
 import { CreatePersons } from "./persons/createPersons"
+import { CreateNewContact } from "./home/createNewContact"
 
 export function Menu(){
+    const modalCreateContatcs = useSelector((s:RootState)=>s.counter.createNewContatc.show)
     const modalCreatePerons = useSelector((s:RootState)=>s.counter.createPersons.show)
     const modalAlterPersons = useSelector((s:RootState)=>s.counter.modalAlterPersons.show)
     const modalAlterUsers = useSelector((s:RootState)=>s.counter.modalAlterUsers.show)
@@ -66,11 +67,14 @@ export function Menu(){
                 </header>
             </div>
             <div className="bg-[#ebeaea] h-[90vh]"> 
+
                 {modalUsers && <CreateUser />}
                 {modalAlterUsers && <AlterUsers/>}
                 {modalSearchContactsShow && <SearchContacts/>}    
                 {modalAlterPersons && <AlterPersons/>}
                 {modalCreatePerons && <CreatePersons/>}
+                {modalCreateContatcs && <CreateNewContact/>}
+
                 {modalNotify && <Notify/>}
                 {modalNotifyError && <ErrorNotify/>}
                 {renderPage(nav)}
