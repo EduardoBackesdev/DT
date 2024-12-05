@@ -135,6 +135,7 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
 }
     mutFav(res)
 }
+    console.log(photo)
     return (
         <div className=" h-full flex justify-center">
             <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
@@ -148,7 +149,7 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
                 </div>
                 <div className="h-[70%]">
                     <div className="flex justify-center">
-                        <img className="h-16 w-full " src={window.URL.createObjectURL(photo)} alt="" />
+                        <img src={URL.createObjectURL(photo)} className=" " alt="" />
                     </div>
                     {data.map((e:any)=>{
                         return (

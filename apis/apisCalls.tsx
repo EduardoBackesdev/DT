@@ -22,12 +22,10 @@ export async function getFavorites(){
 export async function getDownloadPhoto(dados: any){
    const data = await axios.get("https://demometaway.vps-kinghost.net:8485/api/foto/download/" + dados
       , {
-         headers: {
-            'responseType': 'blob'
-         }
+         responseType: "blob",
       }
    )
-   return data.data.blob();
+   return data.data
 }
 
 // Função para retornar pesquisa de contato
