@@ -20,8 +20,14 @@ export async function getFavorites(){
 
 // Função para retorna a foto da pessoa
 export async function getDownloadPhoto(dados: any){
-   const data = await axios.get("https://demometaway.vps-kinghost.net:8485/api/foto/download/" + dados)
-   return data.data
+   const data = await axios.get("https://demometaway.vps-kinghost.net:8485/api/foto/download/" + dados
+      , {
+         headers: {
+            'responseType': 'blob'
+         }
+      }
+   )
+   return data.data.blob();
 }
 
 // Função para retornar pesquisa de contato
