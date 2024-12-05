@@ -18,19 +18,19 @@ export function UserCard({re, reContacts}:any){
             re()
             
         },
-        onError: (s:any)=>{
+        onError: () => {
             dis(showModalNotifyError())
         }
     })
     const {mutate: mutNormal} = useMutation({
         mutationFn: (e:{})=> postCreateAtt(e),
-        onSuccess: (e:any)=>{   
+        onSuccess: () => {   
             reContacts()
             dis(hideModalContacts())
             dis(showModalNotify())
             
         },
-        onError: (s:any)=>{
+        onError: () => {
             dis(showModalNotifyError())
         }
     })
@@ -47,7 +47,7 @@ export function UserCard({re, reContacts}:any){
     const [pais, setPais] = useState("")
     const [telefone, setTelefone] = useState("")
     
-const {data:photo} = useQuery({
+    const { data: photo, isLoading } = useQuery({
     queryKey: ['photo'],
     queryFn: ()=>getDownloadPhoto(data[0].pessoa.id)
 })
@@ -135,8 +135,7 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
 }
     mutFav(res)
 }
-    console.log(photo)
-    return (
+    return isLoading ? <h2>Carregando...</h2> : (
         <div className=" h-full flex justify-center">
             <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
                 <div className="flex justify-end ">
@@ -147,14 +146,14 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
                         <h2>X</h2>
                     </div>
                 </div>
-                <div className="h-[70%]">
-                    <div className="flex justify-center">
-                        <img src={URL.createObjectURL(photo)} className=" " alt="" />
-                    </div>
+                <div className="h-[80%]">
                     {data.map((e:any)=>{
                         return (
                             <div className="h-full">
-                                <form onSubmit={tipo === "normal" ? handleSubmit : handleSubmitFav} className="p-3 rounded-xl h-full flex flex-col gap-7">
+                                <form onSubmit={tipo === "normal" ? handleSubmit : handleSubmitFav} className="p-3 rounded-xl h-full flex flex-col gap-2">
+                                    <div className="h-[30%] flex justify-center">
+                                        <img src={URL.createObjectURL(photo)} className="h-full rounded-lg " alt="" />
+                                    </div>
                                     <div className="text-xl overflow-auto h-full p-3 bg-[#d4d3d342] flex flex-col gap-3">
                                         <div className="flex gap-3">
                                             <span className="font-bold">Nome: </span>
