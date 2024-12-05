@@ -5,7 +5,7 @@ import './login.css'
 import logo from '../../assets/logo-metaway.png'
 import { useMutation } from "@tanstack/react-query";
 import { postLogin } from "../../../apis/apisCalls";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
@@ -33,13 +33,13 @@ export function Login() {
                  }
              })){
                  localStorage.setItem("id", e.id)
-                 localStorage.setItem("token", e.accessToken)
-                 navigate("/menu")
+                 //  localStorage.setItem("token", e.accessToken)
+                 //navigate("/menu")
              }else {
                  console.log("error")
              }
         },
-        onError: (e:any)=>{
+        onError: () => {
             dis(showLoginError())
         }
      })
