@@ -1,11 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
-import { returnPersonsFilter } from "../../../../../apis/apisCalls";
+import { deletePerson, returnPersonsFilter } from "../../../../../apis/apisCalls";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setPersonsId, showModalAlterPersons } from "../../../../store/conterSlice";
+import { setPersonsId, showModalAlterPersons, showModalCreatePersons, showModalNotify, showModalNotifyError } from "../../../../store/conterSlice";
+import { FaTrashAlt, FaUser } from "react-icons/fa";
 
 export function Persons() {
     const dis = useDispatch()
+    const {mutate:del} = useMutation({
+        mutationKey: ['deletePerson'],
+        mutationFn: (e:any)=> deletePerson(e),
+        onSuccess: ()=>{
+            dis(showModalNotify())
+        },
+        onError: ()=>{
+            dis(showModalNotifyError())
+        }
+    })
     const [data, setData] = useState<[]>()
     const {mutate} = useMutation({
         mutationKey: ['filterPersons'],
@@ -17,12 +28,15 @@ export function Persons() {
     useEffect(()=>{
         mutate('')
     }, [])
-    console.log(data)
     return (
         <div className="w-full h-full flex flex-col gap-2">
             <div className=" text-3xl font-bold text-[#666464]">
                 <div className="flex justify-center text-3xl font-bold text-[#666464]">
-                    <h2>Lista de pessoas</h2>
+                    <h2>Lista de pessoas</h2>         
+                </div>
+                <div className="flex justify-center gap-3">
+                <span className="text-xl">Clique no nome para alterar... ou crie um novo registro de pessoa</span>
+                <FaUser onClick={()=>{dis(showModalCreatePersons())}} className="cursor-pointer text-2xl text-green-500" />
                 </div>
             </div>
             <div className="flex justify-center">
@@ -31,14 +45,16 @@ export function Persons() {
 
             <div className="h-[90%] overflow-auto">
                 {data?.map((e:any)=>{
-                    console.log(e)
                     return (
                         <div className="p-3">
-                            <div onClick={()=>{
+                            <div className=" rounded-xl border w-full border-black p-2 flex justify-between">
+                                    <h2 className="font-bold cursor-pointer" onClick={()=>{
                                 dis(setPersonsId(e.id))
                                 dis(showModalAlterPersons())
-                                }} className="rounded-xl border w-full border-black p-2 ">
-                                    <h2 className="font-bold"><span className="text-yellow-600">Nome:</span> {e.nome}</h2>
+                                }}><span className="text-yellow-600">Nome:</span> {e.nome}</h2>
+                                    <FaTrashAlt onClick={()=>{
+                                        del(e.id)
+                                        }} className="text-red-600 text-xl cursor-pointer" />
                                 </div> 
                         </div>
                     )

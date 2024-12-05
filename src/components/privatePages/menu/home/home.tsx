@@ -11,10 +11,11 @@ interface a {
     dataContatos: [],
     dataFavoritos: [],
     re: any,
-    reContacts: any
+    reContacts: any,
+    page: number
 }
 
-export function Home({dataContatos, dataFavoritos, re, reContacts}:a){
+export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
     const dis = useDispatch()
     const {mutate} = useMutation({
         mutationFn: (e:any)=> deleteContact(e),
@@ -33,7 +34,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts}:a){
                     <h2>Contatos</h2>
                 </div>  
                 <div className="flex justify-center">
-                    <p className="text-lg">Clique no contato para exibir mais... ou pesquise pelo contato</p>
+                    <p className="text-lg">Clique no nome para alterar... ou pesquise pelo contato</p>
                     <div className="pl-2 text-2xl">
                         <FaSearch onClick={()=> {dis(showModalSearchContacts())}} className="text-green-600" />
                     </div>
@@ -41,7 +42,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts}:a){
             </div>
             {modalShow && <UserCard re={re} reContacts={reContacts}/>}
             <div className="flex">
-                <div className="w-full">
+                { page != 4 && <div className="w-full">
                     <div className="flex justify-center">
                         <h2>Favoritos</h2>
                     </div>
@@ -49,13 +50,13 @@ export function Home({dataContatos, dataFavoritos, re, reContacts}:a){
                     {dataFavoritos?.map((e:any)=>{
                             return ( 
                                 <>
-                                <div onClick={()=>{
+                                <div className="rounded-xl border w-full border-black p-2 flex justify-between">
+                                    <h2 onClick={()=>{
                                     dis(showModalContacts())
                                     dis(setModalContacts(e))
                                     dis(resetTypeContact())
                                     dis(setTypeContact("fav"))
-                                }} className="rounded-xl border w-full border-black p-2 flex justify-between">
-                                    <h2 className="font-bold"><span className="text-yellow-600">Nome:</span> {e.pessoa.nome}</h2>
+                                }} className="font-bold"><span className="text-yellow-600">Nome:</span> {e.pessoa.nome}</h2>
                                     <FaTrashAlt onClick={()=>{
                                         mutate(e.id)
                                         }} className="text-red-600 text-xl" />
@@ -65,7 +66,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts}:a){
                         })
                     }
                     </div>
-                </div>
+                </div>}
                 <div className="w-full" >
                     <div className="flex justify-center">
                         <h2>Contatos</h2>
@@ -74,13 +75,13 @@ export function Home({dataContatos, dataFavoritos, re, reContacts}:a){
                     {dataContatos?.map((e:any)=>{
                             return ( 
                                 <>
-                                <div onClick={()=>{
+                                <div className="rounded-xl border w-full border-black p-2 flex justify-between">
+                                    <h2 onClick={()=>{
                                     dis(showModalContacts())
                                     dis(setModalContacts(e))
                                     dis(resetTypeContact())
                                     dis(setTypeContact("normal"))
-                                }} className="rounded-xl border w-full border-black p-2 flex justify-between">
-                                    <h2 className="font-bold"><span className="text-yellow-600">Nome:</span> {e.pessoa.nome}</h2>
+                                }} className="font-bold cursor-pointer"><span className="text-yellow-600">Nome:</span> {e.pessoa.nome}</h2>
                                     <FaTrashAlt onClick={()=>{
                                         mutate(e.id)
                                     }} className="text-red-600 text-xl" />

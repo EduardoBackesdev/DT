@@ -36,21 +36,22 @@ export function AlterUsers(){
     const [email, setEmail] = useState("")
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (!regex.test(senha)){
-            setErrorSenha(true)
-            return
-        }
+        if (senha != ""){
+            if (!regex.test(senha)){
+                setErrorSenha(true)
+                return
+            }}
         const res = {
-            tipos: [tipo],
+            tipos: tipo === "" ? data?.object?.tipos : tipo,
             usuario: {
-                cpf: cpf === "" ? data[0].object.usuario.cpf : cpf,
-                dataNascimento: nascimento === "" ? data[0].object.usuario.dataNascimento : nascimento.split("-").reverse().join("-"),
-                email: email === "" ? data[0].object.usuario.email : email,
-                id: data[0].object.usuario.id,
-                nome: nome === "" ? data[0].object.usuario.nome : nome,
-                password: senha === "" ? data[0].object.usuario.senha : senha,
-                telefone: telefone === "" ? data[0].object.usuario.telefone : telefone,
-                username: usuario === "" ? data[0].object.usuario.username : usuario 
+                cpf: cpf === "" ? data?.object?.usuario?.cpf : cpf,
+                dataNascimento: nascimento === "" ? data?.object.usuario?.dataNascimento : nascimento.split("-").reverse().join("-"),
+                email: email === "" ? data?.object.usuario?.email : email,
+                id: data.object.usuario?.id,
+                nome: nome === "" ? data?.object.usuario?.nome : nome,
+                password: senha === "" ? data?.object.usuario?.senha : senha,
+                telefone: telefone === "" ? data?.object.usuario?.telefone : telefone,
+                username: usuario === "" ? data?.object.usuario?.username : usuario 
             }
         }
         mutate(res)
@@ -69,7 +70,6 @@ export function AlterUsers(){
                 </div>
                 <div className="h-[90%]">
                         {arr.map((e:any)=>{
-                        console.log(e)
                             return (
                                 <div className="h-[90%] overflow-auto">
                                     <form onSubmit={handleSubmit} className="h-[95%] overflow-auto" >

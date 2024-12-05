@@ -36,6 +36,12 @@ export async function deleteContact(dados:any){
    return data.data
 }
 
+// Função para remover o cadastro da pessoa
+export async function deletePerson(dados:any){
+   const data = await axios.delete("https://demometaway.vps-kinghost.net:8485/api/pessoa/remover/" + dados)
+   return data.data
+}
+
 // Função para criar ou atualizar dados de contato (FAVORITO)
 export async function postCreateAttFav(dados:any){
    const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/favorito/salvar", dados)
@@ -89,5 +95,11 @@ export async function alterOwnPass(dado: {}){
 // Função que retorna os dados da pessoa
 export async function returnDataPersons(dados: number){
    const data = await axios.get("https://demometaway.vps-kinghost.net:8485/api/pessoa/buscar/" + dados)
+   return data.data
+}
+
+// Função que cria ou atualiza os dados da pessoa
+export async function createOrAttPerson(dados: {}){
+   const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/pessoa/salvar", dados)
    return data.data
 }

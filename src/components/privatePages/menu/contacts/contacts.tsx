@@ -46,7 +46,6 @@ export function Contacts() {
                     </div>
                     <div className="p-5 gap-7 w-full flex flex-col">
                  {data?.map((e:any)=>{
-                    console.log(e)
                             return ( 
                                 <>
                                 <div onClick={()=>{

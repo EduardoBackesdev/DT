@@ -14,8 +14,10 @@ import { CreateUser } from "./users/createUser"
 import { ErrorNotify } from "../../notify/errorNotify"
 import { AlterUsers } from "./users/alterUsers"
 import { AlterPersons } from "./persons/alterPersons"
+import { CreatePersons } from "./persons/createPersons"
 
 export function Menu(){
+    const modalCreatePerons = useSelector((s:RootState)=>s.counter.createPersons.show)
     const modalAlterPersons = useSelector((s:RootState)=>s.counter.modalAlterPersons.show)
     const modalAlterUsers = useSelector((s:RootState)=>s.counter.modalAlterUsers.show)
     const modalUsers = useSelector((s:RootState)=>s.counter.modalUsers.show)
@@ -40,7 +42,7 @@ export function Menu(){
     const renderPage = (nav: any) => {
         switch (nav) {
             case 0:
-                return <Home dataContatos={contacts} dataFavoritos={favorites} re={refetch} reContacts={refetchContacts} />;
+                return <Home page={nav} dataContatos={contacts} dataFavoritos={favorites} re={refetch} reContacts={refetchContacts} />;
             case 1:
                 return <MyRegister />;
             case 2:
@@ -48,7 +50,7 @@ export function Menu(){
             case 3:
                 return <Persons />;
             case 4:
-                return <Contacts />;      
+                return <Home page={nav} dataContatos={contacts} dataFavoritos={favorites} re={refetch} reContacts={refetchContacts} />;     
         }
     };
     return isLoading || isLoadingFavorites || isLoadingUser ? <h2>Carregando...</h2> : (
@@ -67,9 +69,10 @@ export function Menu(){
                 {modalUsers && <CreateUser />}
                 {modalAlterUsers && <AlterUsers/>}
                 {modalSearchContactsShow && <SearchContacts/>}    
+                {modalAlterPersons && <AlterPersons/>}
+                {modalCreatePerons && <CreatePersons/>}
                 {modalNotify && <Notify/>}
                 {modalNotifyError && <ErrorNotify/>}
-                {modalAlterPersons && <AlterPersons/>}
                 {renderPage(nav)}
             </div>
 
