@@ -42,7 +42,7 @@ export function CreatePersons(){
               pais: pais ,
             },
             foto: {
-              id: "string",
+              id: "37e610b5-0bb0-4cb5-a4c2-cf9566591a38",
               name: "foto.png",
               type: "image/png"
             },
@@ -90,8 +90,15 @@ export function CreatePersons(){
                                         <div className="flex gap-3">
                                             <span className="font-bold">CEP: </span> 
                                         </div>
-                                        <input required type="text" onChange={(e:any)=>{setCep(e.target.value)}} 
-                                        placeholder="Digite o novo Cep" className="placeholder:text-black outline-none pl-3" />
+
+                                        <InputMask 
+                                        required
+                                        mask="99999-999"
+                                        onChange={(e:any)=>{setCep(e.target.value)}}
+                                        className="placeholder:text-black w-full rounded-xl pl-3"
+                                        placeholder="Digite o novo CEP"
+                                        />
+                                        
                                         <div className="flex gap-3">
                                             <span className="font-bold">Cidade: </span>   
                                         </div>

@@ -22,37 +22,39 @@ export function Login() {
     const signIn = useSignIn();
     const {mutate} = useMutation({mutationFn: (e:{}) => postLogin(e),
         onSuccess: (e:any)=>{
-             if(signIn({
-                 auth: {
-                     token: e.accessToken,
-                     type: 'Bearer'
-                 },
-                 userState: {
-                     name: e.username,
-                     uid: e.id
-                 }
-             })){
+            //  if(signIn({
+            //      auth: {
+            //          token: e.accessToken,
+            //          type: 'Bearer'
+            //      },
+            //      userState: {
+            //          name: e.username,
+            //          uid: e.id
+            //      }
+            //  })){
                  localStorage.setItem("id", e.id)
-                 //  localStorage.setItem("token", e.accessToken)
-                 //navigate("/menu")
-             }else {
-                 console.log("error")
-             }
+                 localStorage.setItem("token", e.accessToken)
+                 navigate("/menu")
+                 window.location.reload();
+            //  }else {
+            //      console.log("error")
+            //  }
         },
         onError: () => {
             dis(showLoginError())
         }
      })
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit =  (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const data = new FormData(e.currentTarget)
         const dataObj: any = {}
         data.forEach((value, key) => {
             dataObj[key] = value
         })
-        mutate(dataObj)
+         mutate(dataObj)
+         
     }
-    return (
+    return(
         <div className='bg h-screen w-full flex items-center justify-center'>
             {error && <ErrorLogin/>}
             {!error && <div className="flex justify-center">

@@ -49,8 +49,8 @@ export function UserCard({re, reContacts}:any){
     
     const { data: photo, isLoading } = useQuery({
     queryKey: ['photo'],
-    queryFn: ()=>getDownloadPhoto(data[0].pessoa.id)
-})
+    queryFn: ()=>getDownloadPhoto(data[0].pessoa.id)})
+    
 const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     const res = {

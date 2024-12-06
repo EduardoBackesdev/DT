@@ -1,11 +1,12 @@
 import { UserCard } from "./userCard";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
-import { hideModalNotifyError, resetTypeContact, setModalContacts, setTypeContact, showModalContacts, showModalCreateContact, showModalNotify, showModalNotifyError, showModalSearchContacts } from "../../../../store/conterSlice";
+import { resetTypeContact, setModalContacts, setTypeContact, showModalContacts, showModalCreateContact, showModalNotify, showModalNotifyError, showModalSearchContacts } from "../../../../store/conterSlice";
 import { FaSearch, FaUser } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { deleteContact } from "../../../../../apis/apisCalls";
+
 
 interface a {
     dataContatos: [],
@@ -23,7 +24,6 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
             dis(showModalNotify())
         },
         onError: ()=>{
-            console.log("errrinho")
             dis(showModalNotifyError())
         }
     })

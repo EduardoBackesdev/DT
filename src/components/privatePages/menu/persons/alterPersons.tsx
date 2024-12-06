@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { hideModalAlterPersons, showModalNotify, showModalNotifyError } from "../../../../store/conterSlice"
 import { RootState } from "../../../../store/store"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { createOrAttPerson, returnDataPersons } from "../../../../../apis/apisCalls"
+import { createOrAttPerson, getDownloadPhoto, returnDataPersons } from "../../../../../apis/apisCalls"
 import { FormEvent, useState } from "react"
 import InputMask from 'react-input-mask'
 
@@ -23,7 +23,9 @@ export function AlterPersons(){
         queryKey: ['searchPersonsData'],
         queryFn: ()=> returnDataPersons(personId),
     }) 
-    
+    const { data: photo, isLoading:photoLoading } = useQuery({
+        queryKey: ['photo2'],
+        queryFn: ()=>getDownloadPhoto(personId)})
     const arr = [data]
     const [cpf, setCpf] = useState("");
     const [bairro, setBairro] = useState("");
@@ -60,7 +62,10 @@ export function AlterPersons(){
           mutate(res)
           
     }
-    return isLoading ? <h2>Carregando...</h2> :(
+
+
+
+    return isLoading || photoLoading ? <h2>Carregando...</h2> :(
         <div className="h-full w-full flex justify-center mt-10 fixed">
         <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
             <div className="flex justify-end ">
@@ -72,11 +77,13 @@ export function AlterPersons(){
             </div>
             <div className="h-[90%]">
                {arr.map((e:any)=>{
-                console.log(e)
                     return (
                         <div className="h-[90%]">
                             <form onSubmit={handleSubmit} className="p-3 rounded-xl h-full flex flex-col gap-7">
                                     <div className="text-xl overflow-auto h-full p-3 bg-[#d4d3d342] flex flex-col gap-3">
+                                        <div className="h-[30%] flex justify-center">
+                                            <img src={URL.createObjectURL(photo)} className="h-full rounded-lg " alt="" />
+                                        </div>
                                         <div className="flex gap-3">
                                             <span className="font-bold">Nome:</span>
                                             <h2>{e.object?.nome}</h2>

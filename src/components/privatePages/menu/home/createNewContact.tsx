@@ -19,7 +19,6 @@ export function CreateNewContact(){
         }
     })
     const data = useSelector((s:RootState)=>s.counter.dataContacts.data)
-    console.log(data)
     const [email, setEmail] = useState("")
     const [cpf, setCpf] = useState("")
     const [nome, setNome] = useState("")
@@ -31,12 +30,11 @@ export function CreateNewContact(){
     const [numero, setNumero] = useState("")
     const [pais, setPais] = useState("")
     const [telefone, setTelefone] = useState("")
-    
 const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     const res = {
         email: email ,
-        id: 0,
+        id: 1,
         pessoa: {
             cpf: cpf,
             endereco: {
@@ -44,13 +42,17 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
             cep: cep,
             cidade: cidade,
             estado: estado,
-            id: 0,
+            id: 1,
             logradouro: logradouro,
             numero: ~~numero,
             pais: pais,
             },
-            foto: data[0][0].pessoa.foto,
-            id: 0,
+            foto: {
+                id: "37e610b5-0bb0-4cb5-a4c2-cf9566591a38",
+                name: "foto.png",
+                type: "image/png"
+              },
+            id: 1,
             nome: nome,
         },
         privado: true,
@@ -72,7 +74,7 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
 }
 
     return (
-        <div className=" h-full flex justify-center">
+        <div className="h-full fixed flex justify-center w-full">
         <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
             <div className="flex justify-end ">
                 <div  onClick={()=>{
@@ -118,8 +120,13 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
                                 <div className="flex gap-3">
                                     <span className="font-bold">CEP: </span> 
                                 </div>
-                                <input required type="text" onChange={(e:any)=>{setCep(e.target.value)}} 
-                                placeholder="Digite o novo Cep" className="placeholder:text-black outline-none pl-3" />
+                                <InputMask
+                                    required
+                                    mask="99999-999"
+                                    onChange={(e:any)=>{setCep(e.target.value)}}
+                                    className="placeholder:text-black w-full rounded-xl pl-3"
+                                    placeholder="Digite o novo CEP"
+                                    /> 
                                 <div className="flex gap-3">
                                     <span className="font-bold">Cidade: </span>   
                                 </div>
@@ -143,7 +150,7 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
                                 <div className="flex gap-3">
                                 <span className="font-bold">Pais: </span>
                                 </div>      
-                                <input required type="text" onChange={(e:any)=>{setPais(e.target.value)}} 
+                                <input maxLength={2} required type="text" onChange={(e:any)=>{setPais(e.target.value)}} 
                                 placeholder="Digite o novo País" className="placeholder:text-black outline-none pl-3" />
                                 <div className="flex gap-3">
                                 <span className="font-bold">Email: </span>

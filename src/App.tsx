@@ -1,14 +1,13 @@
 import './App.css'
 import './components/login/login'
 import { Login } from './components/login/login'
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Menu } from './components/privatePages/menu/menu';
 import store from './store/store'
 import { Provider, } from 'react-redux';
 import createStore from 'react-auth-kit/createStore';
 import AuthProvider from 'react-auth-kit';
-import AuthOutlet from '@auth-kit/react-router/AuthOutlet';
 
 const stores = createStore({
   authName: '_auth',
@@ -30,11 +29,9 @@ function App() {
                 <Route path='/menu' element={<Menu />} />
               </Route>
               <Route path='/' element={<Login />} />*/}
-              <Route element={<AuthOutlet fallbackPath='/login' />}>
-                <Route path='/' element={<Menu />} />
-                <Route path='/menu' element={<Menu />} />
-              </Route>
-              <Route path='/login' element={<Login />} />
+
+                <Route path='/menu' element={!!localStorage.getItem('token') ? <Menu /> : <Login /> } />
+                <Route path='/' element={!!localStorage.getItem('token') ? <Navigate to='/menu'/> : <Login />} />
 
 
                 </Routes> 

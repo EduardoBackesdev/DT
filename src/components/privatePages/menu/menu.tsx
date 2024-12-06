@@ -15,8 +15,11 @@ import { AlterUsers } from "./users/alterUsers"
 import { AlterPersons } from "./persons/alterPersons"
 import { CreatePersons } from "./persons/createPersons"
 import { CreateNewContact } from "./home/createNewContact"
+import { Loading } from "../../loading/loading"
+import { useNavigate } from "react-router"
 
 export function Menu(){
+    const navs = useNavigate()
     const modalCreateContatcs = useSelector((s:RootState)=>s.counter.createNewContatc.show)
     const modalCreatePerons = useSelector((s:RootState)=>s.counter.createPersons.show)
     const modalAlterPersons = useSelector((s:RootState)=>s.counter.modalAlterPersons.show)
@@ -54,7 +57,7 @@ export function Menu(){
                 return <Home page={nav} dataContatos={contacts} dataFavoritos={favorites} re={refetch} reContacts={refetchContacts} />;     
         }
     };
-    return isLoading || isLoadingFavorites || isLoadingUser ? <h2>Carregando...</h2> : (
+    return isLoading || isLoadingFavorites || isLoadingUser ? <Loading/> : (
         <div className='bg-[#d48274] h-screen w-full'>
             <div className="flex flex-col justify-center pt-2">
                 <header className="flex justify-around font-bold  text-2xl pb-3">
@@ -63,11 +66,15 @@ export function Menu(){
                     {data?.object.tipos.includes("ROLE_ADMIN") && <h2 className={`${ nav === 2 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(2) }}>Usuários</h2>}
                     <h2 className={`${ nav === 3 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(3) }}>Pessoas</h2>
                     <h2 className={`${ nav === 4 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(4) }}>Contatos</h2>
-                    <h2 className="cursor-pointer bg-red-500 p-1 rounded-lg" onClick={() => { }}>Logout</h2>
+                    <h2 className="cursor-pointer bg-red-500 p-1 rounded-lg" onClick={() => {
+                        localStorage.removeItem('token')
+                        localStorage.removeItem('id')
+                        window.location.reload();
+                        navs('/')
+                     }}>Logout</h2>
                 </header>
             </div>
             <div className="bg-[#ebeaea] h-[90vh]"> 
-
                 {modalUsers && <CreateUser />}
                 {modalAlterUsers && <AlterUsers/>}
                 {modalSearchContactsShow && <SearchContacts/>}    

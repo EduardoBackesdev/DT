@@ -41,6 +41,7 @@ export function MyRegister() {
     const [nascimento, setNascimento] = useState("")
     const [username, setUsername] = useState("")
     const [pass, setPass] = useState("")
+    const [passAt, setPassAt] = useState("")
     const [telefone, setTelefone] = useState("")
 
     const attUser = {
@@ -55,7 +56,7 @@ export function MyRegister() {
       };
     const attUserPass = {
         newPassword: pass,
-        password: data?.object.usuario.password,
+        password: passAt,
         username: data?.object.usuario.username
       };
     const arr = [data]
@@ -141,7 +142,10 @@ export function MyRegister() {
                                 <input placeholder="Digite o novo username" onChange={(e:any)=>{setUsername(e.target.value)}} className="placeholder:text-black w-full rounded-xl pl-3" type="text" />
                                 </div>
                                 <div className="flex gap-3">
-                                    <h2 className="font-bold">Senha:</h2><input minLength={8} onChange={(e:any)=>{setPass(e.target.value)}} className="placeholder:text-black w-[50%] rounded-xl pl-3" placeholder="Digite a nova senha" type="password" />  
+                                    <h2 className="font-bold">Nova senha:</h2><input minLength={8} onChange={(e:any)=>{setPass(e.target.value)}} className="placeholder:text-black w-[50%] rounded-xl pl-3" placeholder="Digite a nova senha" type="password" />  
+                                </div>
+                                <div className="flex gap-3">
+                                    <h2 className="font-bold">Senha atual:</h2><input minLength={8} onChange={(e:any)=>{setPassAt(e.target.value)}} className="placeholder:text-black w-[50%] rounded-xl pl-3" placeholder="Digite a senha atual" type="password" />  
                                 </div>
                                 {errorSenha &&
                                 <div className="flex justify-center">
