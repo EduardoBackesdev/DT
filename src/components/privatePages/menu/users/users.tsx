@@ -4,6 +4,8 @@ import { postSearchUser } from "../../../../../apis/apisCalls";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setIdAlterUser, showModalAlterUsers, showModalUsers } from "../../../../store/conterSlice";
+import { Expired } from "../../../expired";
+import { Navigate } from "react-router";
 
 export function Users() {
     const dis = useDispatch()
@@ -17,7 +19,7 @@ export function Users() {
     useEffect(()=>{
         mutate('')
     }, [])
-    return (
+    return Expired() ? <Navigate to='/'/> :(
         <div className="w-full h-full flex flex-col gap-2">
             <div className=" text-3xl font-bold text-[#666464]">
                 <div className="flex justify-center text-3xl font-bold text-[#666464]">

@@ -6,8 +6,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Menu } from './components/privatePages/menu/menu';
 import store from './store/store'
 import { Provider, } from 'react-redux';
-import { Expired } from './components/expired';
-import { Disconnected } from './components/Disconnected/Disconnected';
 
 const queryClient = new QueryClient();
 
@@ -19,7 +17,6 @@ function App() {
                 <Routes>  
                   <Route path='/menu' element={!!localStorage.getItem('token') ? <Menu /> : <Login /> } />
                   <Route path='/' element={!!localStorage.getItem('token') ? <Navigate to='/menu'/> : <Login />} />
-                  <Route path='/expired' element={Expired() && <Disconnected />} />
                 </Routes> 
             </BrowserRouter>
         </Provider>

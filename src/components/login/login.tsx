@@ -27,9 +27,7 @@ export function Login() {
                  if (manter){
                     navigate("/menu")
                     window.location.reload();
-                    console.log('conectado')
                  }else {
-                    console.log('n conectado')
                     localStorage.setItem("timer", tr.toString())
                     navigate("/menu")
                     window.location.reload();

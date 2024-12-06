@@ -30,7 +30,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
         }
     })
     const modalShow = useSelector((s:RootState) => s.counter.modalContacts.show)
-    return Expired() ? <Navigate to='/expired'/> : (
+    return Expired() ? <Navigate to='/'/> : (
         <div className="w-full">
             <div className=" text-3xl font-bold text-[#666464]">
                 <div className="flex justify-center text-3xl font-bold text-[#666464]">   

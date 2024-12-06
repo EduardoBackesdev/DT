@@ -4,6 +4,8 @@ import { FormEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { showModalNotify, showModalNotifyError } from "../../../../store/conterSlice"
 import InputMask from 'react-input-mask'
+import { Expired } from "../../../expired"
+import { Navigate } from "react-router"
 
 export function MyRegister() {
     const [errorSenha, setErrorSenha] = useState(false)
@@ -73,7 +75,7 @@ export function MyRegister() {
         alterPass(attUserPass)
         setErrorSenha(false)
     }
-    return isLoading ? <h2>Carregando...</h2> : (
+    return isLoading ? <h2>Carregando...</h2> : Expired() ? <Navigate to='/'/> : (
         <div className="w-full">
             <div className=" text-3xl font-bold text-[#666464]">
                 <div className="flex justify-center text-3xl font-bold text-[#666464]">
