@@ -25,15 +25,8 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <Routes>  
-              {/* <Route element={<AuthOutlet fallbackPath='/' />}>
-                <Route path='/menu' element={<Menu />} />
-              </Route>
-              <Route path='/' element={<Login />} />*/}
-
-                <Route path='/menu' element={!!localStorage.getItem('token') ? <Menu /> : <Login /> } />
-                <Route path='/' element={!!localStorage.getItem('token') ? <Navigate to='/menu'/> : <Login />} />
-
-
+                  <Route path='/menu' element={!!localStorage.getItem('token') ? <Menu /> : <Login /> } />
+                  <Route path='/' element={!!localStorage.getItem('token') ? <Navigate to='/menu'/> : <Login />} />
                 </Routes> 
             </BrowserRouter>
         </Provider>

@@ -6,7 +6,6 @@ import logo from '../../assets/logo-metaway.png'
 import { useMutation } from "@tanstack/react-query";
 import { postLogin } from "../../../apis/apisCalls";
 import { useNavigate } from "react-router";
-import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ErrorLogin } from "./errorLogin";
@@ -19,26 +18,12 @@ export function Login() {
     const error = useSelector((s:RootState)=>s.counter.loginError.show)
     const [manter, setManter] = useState(false)
     const navigate = useNavigate()
-    const signIn = useSignIn();
     const {mutate} = useMutation({mutationFn: (e:{}) => postLogin(e),
         onSuccess: (e:any)=>{
-            //  if(signIn({
-            //      auth: {
-            //          token: e.accessToken,
-            //          type: 'Bearer'
-            //      },
-            //      userState: {
-            //          name: e.username,
-            //          uid: e.id
-            //      }
-            //  })){
                  localStorage.setItem("id", e.id)
                  localStorage.setItem("token", e.accessToken)
                  navigate("/menu")
                  window.location.reload();
-            //  }else {
-            //      console.log("error")
-            //  }
         },
         onError: () => {
             dis(showLoginError())
