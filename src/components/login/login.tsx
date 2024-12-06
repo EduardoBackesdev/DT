@@ -21,7 +21,7 @@ export function Login() {
     const {mutate} = useMutation({mutationFn: (e:{}) => postLogin(e),
         onSuccess: (e:any)=>{
                  const timer = new Date()
-                 const tr = timer.getTime() + 60 * 1000 
+                 const tr = timer.getTime() + 1800 * 1000 
                  localStorage.setItem("id", e.id)
                  localStorage.setItem("token", e.accessToken)
                  if (manter){
