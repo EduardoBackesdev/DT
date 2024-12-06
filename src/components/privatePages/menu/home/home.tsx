@@ -6,6 +6,8 @@ import { FaSearch, FaUser } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { deleteContact } from "../../../../../apis/apisCalls";
+import { Expired } from "../../../expired";
+import { Navigate } from "react-router";
 
 
 interface a {
@@ -28,7 +30,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
         }
     })
     const modalShow = useSelector((s:RootState) => s.counter.modalContacts.show)
-    return(
+    return Expired() ? <Navigate to='/expired'/> : (
         <div className="w-full">
             <div className=" text-3xl font-bold text-[#666464]">
                 <div className="flex justify-center text-3xl font-bold text-[#666464]">   

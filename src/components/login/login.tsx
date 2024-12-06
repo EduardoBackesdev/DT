@@ -20,10 +20,21 @@ export function Login() {
     const navigate = useNavigate()
     const {mutate} = useMutation({mutationFn: (e:{}) => postLogin(e),
         onSuccess: (e:any)=>{
+                 const timer = new Date()
+                 const tr = timer.getTime() + 60 * 1000 
                  localStorage.setItem("id", e.id)
                  localStorage.setItem("token", e.accessToken)
-                 navigate("/menu")
-                 window.location.reload();
+                 if (manter){
+                    navigate("/menu")
+                    window.location.reload();
+                    console.log('conectado')
+                 }else {
+                    console.log('n conectado')
+                    localStorage.setItem("timer", tr.toString())
+                    navigate("/menu")
+                    window.location.reload();
+                 }
+                 
         },
         onError: () => {
             dis(showLoginError())
