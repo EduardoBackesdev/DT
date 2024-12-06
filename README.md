@@ -1,30 +1,18 @@
-# React + TypeScript + Vite
+# Teste técnico Metaway
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Login ![login](https://github.com/user-attachments/assets/a2e82f49-1c99-4ca5-9821-8a8ef8414410)
+- Home ![Home](https://github.com/user-attachments/assets/a90012eb-84c1-4374-9a1b-9585582fb5ab)
+- Home/Criar Contato ![Home Modal](https://github.com/user-attachments/assets/2133086a-e8d3-448a-9183-eb8e93ed0cdb)
+- Home/Pesquisa Contato ![pesquisa contato](https://github.com/user-attachments/assets/728519c6-491d-4154-a957-87ce84a06f27)
+- Meu cadastro ![meu cadastro](https://github.com/user-attachments/assets/de52db38-6f9d-4ef5-a1a1-2cf7b7dbc8a6)
+- Usuarios ![usuarios](https://github.com/user-attachments/assets/bac2e209-bbf1-4c83-998b-87afa8d57439)
+- Usuarios/criar novo usuario ![8](https://github.com/user-attachments/assets/f582bec2-bb9d-44c0-9a6f-5b4422d221b5)
+- Pessoas ![9](https://github.com/user-attachments/assets/318a92cd-397a-4961-9cf5-0eccc13a19c6)
+- Pessoas/ Criar Pessoa ![11](https://github.com/user-attachments/assets/44c9459b-3729-44b1-a2e6-5ef2c2b49f6c)
+- Pessoas/ Alterar pessoa ![image](https://github.com/user-attachments/assets/194de930-6bca-4b5a-ab39-b414663d39b2)
+- Contatos ![22](https://github.com/user-attachments/assets/4b2f8a63-a304-4961-95eb-e443eb049ea1)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+ 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
