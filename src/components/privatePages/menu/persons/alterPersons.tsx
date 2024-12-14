@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { createOrAttPerson, getDownloadPhoto, returnDataPersons } from "../../../../../apis/apisCalls"
 import { FormEvent, useState } from "react"
 import InputMask from 'react-input-mask'
+import { Loading } from "../../../loading/loading"
 
 export function AlterPersons(){
     const dis = useDispatch()
@@ -65,7 +66,7 @@ export function AlterPersons(){
 
 
 
-    return isLoading || photoLoading ? <h2>Carregando...</h2> :(
+    return isLoading || photoLoading ? <Loading/> :(
         <div className="h-full w-full flex justify-center mt-10 fixed">
         <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
             <div className="flex justify-end ">

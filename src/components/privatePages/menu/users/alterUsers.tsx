@@ -5,6 +5,7 @@ import { RootState } from "../../../../store/store"
 import { getReturnDataUser, postCreateOrAttUser } from "../../../../../apis/apisCalls"
 import InputMask from 'react-input-mask'
 import { FormEvent, useState } from "react"
+import { Loading } from "../../../loading/loading"
 
 export function AlterUsers(){
     const dis = useDispatch()
@@ -57,7 +58,7 @@ export function AlterUsers(){
         mutate(res)
         setErrorSenha(false)
     }
-    return isLoading ? <h2>Carregando...</h2> : (
+    return isLoading ? <Loading/> : (
         <div className="h-full w-full flex justify-center mt-10 fixed">
             <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
                 <div className="flex justify-end ">

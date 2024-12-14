@@ -19,7 +19,7 @@ export function Users() {
     useEffect(()=>{
         mutate('')
     }, [])
-    return Expired() ? <Navigate to='/'/> :(
+    return Expired() ? <Navigate to='/'/> : (
         <div className="w-full h-full flex flex-col gap-2">
             <div className=" text-3xl font-bold text-[#666464]">
                 <div className="flex justify-center text-3xl font-bold text-[#666464]">

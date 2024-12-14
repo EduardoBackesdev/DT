@@ -6,6 +6,7 @@ import { showModalNotify, showModalNotifyError } from "../../../../store/conterS
 import InputMask from 'react-input-mask'
 import { Expired } from "../../../expired"
 import { Navigate } from "react-router"
+import { Loading } from "../../../loading/loading"
 
 export function MyRegister() {
     const [errorSenha, setErrorSenha] = useState(false)
@@ -75,7 +76,7 @@ export function MyRegister() {
         alterPass(attUserPass)
         setErrorSenha(false)
     }
-    return isLoading ? <h2>Carregando...</h2> : Expired() ? <Navigate to='/'/> : (
+    return isLoading ? <Loading/> : Expired() ? <Navigate to='/'/> : (
         <div className="w-full">
             <div className=" text-3xl font-bold text-[#666464]">
                 <div className="flex justify-center text-3xl font-bold text-[#666464]">

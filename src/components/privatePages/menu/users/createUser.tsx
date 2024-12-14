@@ -59,7 +59,10 @@ export function CreateUser(){
                         <h2>X</h2>
                     </div>
                 </div>
-                <div className="h-[90%]">
+                <div className="h-[81%]">
+                    <div className="flex justify-center font-bold">
+                        Criar Usuário
+                    </div>
                     <form className="h-[95%] overflow-auto" onSubmit={handleSubmit}>
                         <div className="w-full flex flex-col gap-2 p-3">
                             <div className="flex">

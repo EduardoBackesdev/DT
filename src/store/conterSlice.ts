@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    createNewFavorite: {
+        show: false
+    },
     createNewContatc: {
         show: false
     },
@@ -40,6 +43,9 @@ const initialState = {
     dataContacts: {
         data: [{}] as any[],
     },
+    dataFavorite: {
+        data: [{}] as any[],
+    },
     tipeContact: {
         tipo: ""
     }
@@ -49,6 +55,12 @@ const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    showModalCreateFavorite: (state)=>{
+        state.createNewFavorite.show = true
+    },
+    hideModalCreatefavorite: (state)=>{
+        state.createNewFavorite.show = false
+    },
     showModalCreateContact: (state)=>{
         state.createNewContatc.show = true
     },
@@ -127,6 +139,13 @@ const counterSlice = createSlice({
     hideModalContacts: (state)=>{
         state.modalContacts.show= false
     },
+    setModalFavorite: (state, p)=>{
+        state.dataFavorite.data = []
+        state.dataFavorite.data.push(p.payload)
+    },
+    resetModalFavorite: (state)=>{
+        state.dataContacts.data = []
+    },
     setModalContacts: (state, p)=>{
         state.dataContacts.data = []
         state.dataContacts.data.push(p.payload)
@@ -165,7 +184,11 @@ export const {
     hideModalCreatePersons,
     showModalCreatePersons,
     hideModalCreateContact,
-    showModalCreateContact
+    showModalCreateContact,
+    hideModalCreatefavorite,
+    showModalCreateFavorite,
+    resetModalFavorite,
+    setModalFavorite
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

@@ -17,10 +17,12 @@ import { CreatePersons } from "./persons/createPersons"
 import { CreateNewContact } from "./home/createNewContact"
 import { Loading } from "../../loading/loading"
 import { useNavigate } from "react-router"
+import { CreateNewFavorite } from "./home/createNewFavorite"
 
 export function Menu(){
     const navs = useNavigate()
     const modalCreateContatcs = useSelector((s:RootState)=>s.counter.createNewContatc.show)
+    const modalCreateFavorite = useSelector((s:RootState)=>s.counter.createNewFavorite.show)
     const modalCreatePerons = useSelector((s:RootState)=>s.counter.createPersons.show)
     const modalAlterPersons = useSelector((s:RootState)=>s.counter.modalAlterPersons.show)
     const modalAlterUsers = useSelector((s:RootState)=>s.counter.modalAlterUsers.show)
@@ -82,6 +84,7 @@ export function Menu(){
                 {modalAlterPersons && <AlterPersons/>}
                 {modalCreatePerons && <CreatePersons/>}
                 {modalCreateContatcs && <CreateNewContact/>}
+                {modalCreateFavorite && <CreateNewFavorite/>}      
 
                 {modalNotify && <Notify/>}
                 {modalNotifyError && <ErrorNotify/>}

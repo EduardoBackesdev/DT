@@ -53,7 +53,6 @@ export function CreatePersons(){
           
     }
 
-
     return (
         <div className="h-full w-full flex justify-center mt-10 fixed">
         <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
@@ -64,7 +63,10 @@ export function CreatePersons(){
                     <h2>X</h2>
                 </div>
             </div>
-            <div className="h-[90%]">
+            <div className="h-[81%]">
+                <div className="flex justify-center font-bold">
+                    Criar Pessoa
+                </div>
                             <form onSubmit={handleSubmit} className="p-3 rounded-xl h-full flex flex-col gap-7">
                                     <div className="text-xl overflow-auto h-full p-3 bg-[#d4d3d342] flex flex-col gap-3">
                                         <div className="flex gap-3">

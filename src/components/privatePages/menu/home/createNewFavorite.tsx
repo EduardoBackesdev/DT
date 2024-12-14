@@ -1,35 +1,35 @@
-import { useMutation } from '@tanstack/react-query'
+import { FormEvent, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../../../../store/store"
 import InputMask from 'react-input-mask'
-import { postCreateAtt } from '../../../../../apis/apisCalls'
-import { useDispatch, useSelector } from 'react-redux'
-import { hideModalCreateContact, showModalNotify, showModalNotifyError } from '../../../../store/conterSlice'
-import { FormEvent, useState } from 'react'
-import { RootState } from '../../../../store/store'
+import { hideModalCreatefavorite, showModalNotify, showModalNotifyError } from "../../../../store/conterSlice"
+import { useMutation } from "@tanstack/react-query"
+import { postCreateAttFav } from "../../../../../apis/apisCalls"
 
-export function CreateNewContact(){
-    const dis = useDispatch()
-    const {mutate: mutNormal} = useMutation({
-        mutationFn: (e:{})=> postCreateAtt(e),
-        onSuccess: ()=>{   
-            dis(showModalNotify())
-            
-        },
-        onError: ()=>{
-            dis(showModalNotifyError())
-        }
-    })
-    const data = useSelector((s:RootState)=>s.counter.dataContacts.data)
-    const [email, setEmail] = useState("")
-    const [cpf, setCpf] = useState("")
-    const [nome, setNome] = useState("")
-    const [bairro, setBairro] = useState("")
-    const [cep, setCep] = useState("")
-    const [cidade, setCidade] = useState("")
-    const [estado, setEstado] = useState("")
-    const [logradouro, setLogradouro] = useState("")
-    const [numero, setNumero] = useState("")
-    const [pais, setPais] = useState("")
-    const [telefone, setTelefone] = useState("")
+export function CreateNewFavorite(){
+const dis = useDispatch()
+const{ mutate } = useMutation({
+    mutationKey: ['createNewFavorite'],
+    mutationFn: (e:{})=>postCreateAttFav(e),
+    onSuccess: ()=>{   
+        dis(showModalNotify())   
+    },
+    onError: (s:any)=>{
+        dis(showModalNotifyError())
+    }
+})
+const data = useSelector((s:RootState)=>s.counter.dataFavorite.data)
+const [email, setEmail] = useState("")
+const [cpf, setCpf] = useState("")
+const [nome, setNome] = useState("")
+const [bairro, setBairro] = useState("")
+const [cep, setCep] = useState("")
+const [cidade, setCidade] = useState("")
+const [estado, setEstado] = useState("")
+const [logradouro, setLogradouro] = useState("")
+const [numero, setNumero] = useState("")
+const [pais, setPais] = useState("")
+const [telefone, setTelefone] = useState("")
 const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     const res = {
@@ -60,17 +60,17 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
         telefone: telefone,
         tipoContato: "CELULAR",
         usuario: {
-            cpf: data[0][0].usuario.cpf,
-            dataNascimento: data[0][0].usuario.dataNascimento,
-            email: data[0][0].usuario.email,
-            id: data[0][0].usuario.id,
-            nome: data[0][0].usuario.nome,
-            password: data[0][0].usuario.password,
+            cpf: data[0][0].usuario?.cpf,
+            dataNascimento: data[0][0].usuario?.dataNascimento,
+            email: data[0][0].usuario?.email,
+            id: data[0][0].usuario?.id,
+            nome: data[0][0].usuario?.nome,
+            password: data[0][0].usuario?.password,
             telefone: data[0][0].usuario?.telefone,
-            username: data[0][0].usuario.username   
+            username: data[0][0].usuario?.username   
             }
 }
-    mutNormal(res)
+    mutate(res)
 }
 
     return (
@@ -78,14 +78,14 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
         <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
             <div className="flex justify-end ">
                 <div  onClick={()=>{
-                    dis(hideModalCreateContact())
+                    dis(hideModalCreatefavorite())
             }} className="text-3xl cursor-pointer bg-red-600 w-[5%] flex justify-center rounded-tr-xl">
                     <h2>X</h2>
                 </div>
             </div>
             <div className="h-[70%]">
                 <div className='flex justify-center font-bold'>
-                    Criar Contato
+                    Criar Favorito
                 </div>
                     <div className="h-full">
                         <form onSubmit={handleSubmit} className="p-3 rounded-xl h-full flex flex-col gap-7">
@@ -171,6 +171,4 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
         </div>
     </div>
     )
-
-
 }
