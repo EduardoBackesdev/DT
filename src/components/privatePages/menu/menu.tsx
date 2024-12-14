@@ -60,8 +60,8 @@ export function Menu(){
         }
     };
     return isLoading || isLoadingFavorites || isLoadingUser ? <Loading/> : (
-        <div className='bg-[#d48274] h-screen w-full'>
-            <div className="flex flex-col justify-center pt-2">
+        <div className='bg-[#d48274] min-w-[600px] h-screen w-full'>
+            <div className="flex flex-col justify-center pt-2 ">
                 <header className="flex justify-around font-bold  text-2xl pb-3">
                     <h2 className={`${ nav === 0 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(0) }}>Home</h2>
                     <h2 className={`${ nav === 1 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(1) }}>Meu Cadastro</h2>

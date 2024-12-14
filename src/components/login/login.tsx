@@ -66,9 +66,11 @@ export function Login() {
                                 <RiLockPasswordFill className="absolute right-0 top-[50%] translate-y-[-50%] w-fit h-fit text-bluecontrast text-2xl" />
                                 <input placeholder="Senha" name="password" autoComplete="off" type="password" className="placeholder:text-white w-full outline-none text-2xl text-white border-b-2 border-[#E5E7EB] bg-transparent" required />
                                 </div>
-                                <div className="flex gap-4 text-xl">
-                                    <h2>Manter conectado</h2>
-                                    <input  type="checkbox" onChange={(e:any)=>{setManter(e.target.checked) }} />
+                                <div className="flex flex-col gap-4 text-xl">
+                                    <div className="flex gap-4 text-xl">
+                                        <h2>Lembrar Credenciais</h2>
+                                        <input  type="checkbox" onChange={(e:any)=>{setManter(e.target.checked) }} />
+                                    </div>
                                 </div>
                                 <button className="text-center bg-[#39bb39] rounded-xl h-12 bg-bluecontrast font-bold">Login</button>
                             </div>
