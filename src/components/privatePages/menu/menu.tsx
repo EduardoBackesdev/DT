@@ -71,8 +71,7 @@ export function Menu(){
                     <h2 className="cursor-pointer bg-red-500 p-1 rounded-lg" onClick={() => {
                         localStorage.removeItem('token')
                         localStorage.removeItem('id')
-                        localStorage.removeItem('timer')
-                        navs('/')  
+                        localStorage.removeItem('timer')  
                         window.location.reload();
                      }}>Logout</h2>
                 </header>
