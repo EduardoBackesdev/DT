@@ -37,8 +37,8 @@ export function Persons() {
                     <h2>Lista de pessoas</h2>         
                 </div>
                 <div className="flex justify-center gap-3">
-                <span className="text-xl">Clique no nome para alterar... ou clique e crie um novo registro de pessoa</span>
-                <FaUser onClick={()=>{dis(showModalCreatePersons())}} className="cursor-pointer text-2xl text-green-500" />
+                    <span className="text-xl text-center">Clique no nome para alterar... ou clique e crie um novo registro de pessoa</span>
+                    <FaUser onClick={()=>{dis(showModalCreatePersons())}} className="cursor-pointer text-2xl text-green-500" />
                 </div>
             </div>
             <div className="flex justify-center">

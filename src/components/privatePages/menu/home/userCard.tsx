@@ -6,6 +6,7 @@ import { useMutation, useQuery} from "@tanstack/react-query"
 import { getDownloadPhoto, postCreateAtt, postCreateAttFav } from "../../../../../apis/apisCalls"
 import { FormEvent, useState } from "react"
 import InputMask from 'react-input-mask'
+import { Loading } from "../../../loading/loading"
 
 export function UserCard({re, reContacts}:any){
     const tipo = useSelector((s:RootState)=>s.counter.tipeContact.tipo)
@@ -135,7 +136,7 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
 }
     mutFav(res)
 }
-    return isLoading ? <h2>Carregando...</h2> : (
+    return isLoading ? <Loading/> : (
         <div className=" h-full flex justify-center">
             <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
                 <div className="flex justify-end ">

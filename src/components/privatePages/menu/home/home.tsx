@@ -11,7 +11,7 @@ showModalNotifyError, showModalSearchContacts } from "../../../../store/conterSl
 import { FaSearch, FaUser } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
-import { deleteContact } from "../../../../../apis/apisCalls";
+import { deleteContact, deleteFav } from "../../../../../apis/apisCalls";
 import { Expired } from "../../../expired";
 import { Navigate } from "react-router";
 
@@ -30,10 +30,25 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
         mutationFn: (e:number)=> deleteContact(e),
         onSuccess: ()=>{
             dis(showModalNotify())
+            re()
+            reContacts()
         },
         onError: ()=>{
             dis(showModalNotifyError())
         }
+    })
+    const {mutate: deleteFavs} = useMutation({
+        mutationKey: ['deletefav'],
+        mutationFn: (e:number)=> deleteFav(e),
+        onSuccess: ()=>{
+            dis(showModalNotify())
+            re()
+            reContacts()
+        },
+        onError: ()=>{
+            dis(showModalNotifyError())
+        }
+
     })
     const modalShow = useSelector((s:RootState) => s.counter.modalContacts.show)
     return Expired() ? <Navigate to='/'/> : (
@@ -63,7 +78,6 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
                                     dis(setModalFavorite(dataFavoritos))
                                 }} className="cursor-pointer text-2xl text-green-500" />
                         </div>
-
                     </div>
                     <div className="p-5 gap-7 w-full flex flex-col">
                     {dataFavoritos?.map((e:any)=>{
@@ -80,7 +94,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
                                     <div className="flex gap-3">
                                         <FaStar className="text-xl text-yellow-500" />
                                         <FaTrashAlt onClick={()=>{
-                                            mutate(e.id)
+                                            deleteFavs(e.id)
                                             }} className="text-red-600 text-xl cursor-pointer" />
                                     </div>
                                 </div> 

@@ -103,7 +103,7 @@ export function AlterUsers(){
                                             </div>
                                             <div className="flex gap-2">
                                                 <h2>Nascimento:</h2>
-                                                <h2>{e.object.usuario.dataNascimento}</h2>
+                                                <h2>{e.object.usuario.dataNascimento.split("-").reverse().join("-")}</h2>
                                             </div>
                                             <div>
                                             <InputMask

@@ -93,55 +93,69 @@ export function MyRegister() {
                     {arr.map((e:any)=>{
                         return (
                             <div className="flex flex-col gap-4">
-                                <div className="flex gap-3 ">
-                                    <h2 className="font-bold">Nome: </h2><span>{e.object.usuario.nome}</span><input placeholder="Digite o novo nome" onChange={(e:any)=>{setNome(e.target.value)}} className="placeholder:text-black w-[50%] rounded-xl pl-3" type="text" />
+                                <div className="flex flex-col gap-3 ">
+                                    <div className="flex gap-3 ">
+                                        <h2 className="font-bold">Nome: </h2><span>{e.object.usuario.nome}</span>
+                                    </div>
+                                    <input placeholder="Digite o novo nome" onChange={(e:any)=>{setNome(e.target.value)}} className="placeholder:text-black w-full rounded-xl pl-3" type="text" />
                                 </div>
                                 <div className="flex gap-3">
                                     <h2 className="font-bold">Tipo: </h2><span>{e.object.tipos.includes("ROLE_ADMIN") ? "Administrador" : "Usuario"}</span>
                                 </div>
-                                <div className="flex gap-3">
-                                    <h2 className="font-bold">CPF:</h2>
-                                    <span>{e.object.usuario.cpf}</span>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex gap-3">
+                                        <h2 className="font-bold">CPF:</h2>
+                                        <span>{e.object.usuario.cpf}</span>
+                                    </div>
                                     <InputMask
                                         mask="999.999.999-99"
                                         onChange={(e:any) => setCpf(e.target.value)}
-                                        className="placeholder:text-black w-[50%] rounded-xl pl-3"
+                                        className="placeholder:text-blackw-full rounded-xl pl-3"
                                         placeholder="Digite o CPF"
                                         />                          
                                 </div>
-                                <div className="flex gap-3">
-                                <h2 className="font-bold">Nascimento: </h2>
-                                <span>{e.object.usuario.dataNascimento.split("-").reverse().join("-")}</span>
+                                <div className="flex flex-col gap-3">
+                                <div className="flex ga-3">
+                                    <h2 className="font-bold">Nascimento: </h2>
+                                    <span>{e.object.usuario.dataNascimento.split("-").reverse().join("-")}</span>
+                                </div>
                                 <InputMask
                                     mask="99-99-9999"
                                     onChange={(e:any) => setNascimento(e.target.value)}
-                                    className="placeholder:text-black w-[50%] rounded-xl pl-3"
+                                    className="placeholder:text-black w-full rounded-xl pl-3"
                                     placeholder="XX-XX-XXXX"
                                     />                       
                                 </div>
-                                <div className="flex gap-3">
-                                <h2 className="font-bold">Telefone:</h2>  
-                                <span>{e.object.usuario.telefone}</span>  
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex gap-3">
+                                        <h2 className="font-bold">Telefone:</h2>  
+                                        <span>{e.object.usuario.telefone}</span> 
+                                    </div>
+                                
                                 <InputMask
                                     mask="(99) 99999-9999"
                                     onChange={(e:any) => setTelefone(e.target.value)}
-                                    className="placeholder:text-black w-[50%] rounded-xl pl-3"
+                                    className="placeholder:text-black w-full rounded-xl pl-3"
                                     placeholder="(XX) XXXXX-XXXX"
                                     />                  
                                 </div>
-                                <div className="flex gap-3">
-                                <h2 className="font-bold">Email:</h2> 
-                                <span>{e.object.usuario.email}</span>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex gap-3">
+                                        <h2 className="font-bold">Email:</h2> 
+                                        <span>{e.object.usuario.email}</span>
+                                    </div>       
                                 <InputMask
                                     mask=""
                                     onChange={(e:any) => setEmail(e.target.value)}
-                                    className="placeholder:text-black w-[50%] rounded-xl pl-3"
+                                    className="placeholder:text-black w-full rounded-xl pl-3"
                                     placeholder="usuario@email.com"
                                      />                   
                                 </div>
-                                <div className="flex gap-3">
-                                <h2 className="font-bold">Username:</h2> 
-                                <span>{e.object.usuario.username}</span>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex gap-3">
+                                        <h2 className="font-bold">Username:</h2> 
+                                        <span>{e.object.usuario.username}</span>
+                                    </div>                
                                 <input placeholder="Digite o novo username" onChange={(e:any)=>{setUsername(e.target.value)}} className="placeholder:text-black w-full rounded-xl pl-3" type="text" />
                                 </div>
                                 <div className="flex gap-3">

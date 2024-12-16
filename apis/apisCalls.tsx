@@ -107,3 +107,9 @@ export async function createOrAttPerson(dados: {}){
    const data = await axios.post("https://demometaway.vps-kinghost.net:8485/api/pessoa/salvar", dados)
    return data.data
 }
+
+// Função que exclui um contato favorito
+export async function deleteFav(dados:number){
+   const data = await axios.delete("https://demometaway.vps-kinghost.net:8485/api/favorito/remover/"+ dados)
+   return data.data
+}

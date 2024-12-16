@@ -58,7 +58,7 @@ export function Menu(){
         }
     };
     return isLoading || isLoadingFavorites || isLoadingUser ? <Loading/> : (
-        <div className='bg-[#d48274] min-w-[600px] h-screen w-full'>
+        <div className='bg-[#d48274] min-w-[700px] h-screen w-full'>
             <div className="flex flex-col justify-center pt-2 ">
                 <header className="flex justify-around font-bold  text-2xl pb-3">
                     <h2 className={`${ nav === 0 ? "text-green-400" : "text-[#ffffff]"} cursor-pointer`} onClick={() => { setNav(0) }}>Home</h2>
@@ -74,7 +74,7 @@ export function Menu(){
                      }}>Logout</h2>
                 </header>
             </div>
-            <div className="bg-[#ebeaea] h-[90vh]"> 
+            <div className="bg-[#ebeaea] h-[90vh] overflow-auto"> 
                 {modalUsers && <CreateUser />}
                 {modalAlterUsers && <AlterUsers/>}
                 {modalSearchContactsShow && <SearchContacts/>}    
@@ -87,7 +87,6 @@ export function Menu(){
                 {modalNotifyError && <ErrorNotify/>}
                 {renderPage(nav)}
             </div>
-
         </div>
     )
 }
