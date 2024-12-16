@@ -56,7 +56,7 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
             nome: nome,
         },
         privado: true,
-        tag: data[0][0].tag,
+        tag: "Comercial",
         telefone: telefone,
         tipoContato: "CELULAR",
         usuario: {

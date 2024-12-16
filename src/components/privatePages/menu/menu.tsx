@@ -43,6 +43,7 @@ export function Menu(){
         queryKey: ["getContacts"], 
         queryFn: () => getContacts(dados)
     })
+    console.log(contacts)
     const renderPage = (nav: any) => {
         switch (nav) {
             case 0:
