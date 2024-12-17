@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    user: {
+        data: [] as any[]
+    },
     createNewFavorite: {
         show: false
     },
@@ -55,6 +58,12 @@ const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    setUser: (state, p)=>{
+        state.user.data.push(p.payload)
+    },
+    resetUser:(state)=>{
+        state.user.data = []
+    },
     showModalCreateFavorite: (state)=>{
         state.createNewFavorite.show = true
     },
@@ -188,7 +197,9 @@ export const {
     hideModalCreatefavorite,
     showModalCreateFavorite,
     resetModalFavorite,
-    setModalFavorite
+    setModalFavorite,
+    resetUser,
+    setUser
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

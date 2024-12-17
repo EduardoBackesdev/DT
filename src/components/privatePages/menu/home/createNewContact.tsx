@@ -1,23 +1,31 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import InputMask from 'react-input-mask'
-import { postCreateAtt } from '../../../../../apis/apisCalls'
+import { getReturnDataUser, postCreateAtt } from '../../../../../apis/apisCalls'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideModalCreateContact, showModalNotify, showModalNotifyError } from '../../../../store/conterSlice'
 import { FormEvent, useState } from 'react'
 import { RootState } from '../../../../store/store'
+import { Loading } from '../../../loading/loading'
 
-export function CreateNewContact(){
+export function CreateNewContact({re}:any){
     const dis = useDispatch()
+    const [id, setId] = useState(localStorage.getItem('id'))
+    const {data:sel, isLoading: isLoadingUsers} = useQuery({
+        queryKey: ['myRegisterTwo'],
+        queryFn: ()=> getReturnDataUser(Number(id))
+    })
     const {mutate: mutNormal} = useMutation({
         mutationFn: (e:{})=> postCreateAtt(e),
         onSuccess: ()=>{   
             dis(showModalNotify())
+            re()
             
         },
         onError: ()=>{
             dis(showModalNotifyError())
         }
     })
+
     const data = useSelector((s:RootState)=>s.counter.dataContacts.data)
     const [email, setEmail] = useState("")
     const [cpf, setCpf] = useState("")
@@ -59,21 +67,11 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
         tag: "Comercial",
         telefone: telefone,
         tipoContato: "CELULAR",
-        usuario: {
-            cpf: data[0][0].usuario.cpf,
-            dataNascimento: data[0][0].usuario.dataNascimento,
-            email: data[0][0].usuario.email,
-            id: data[0][0].usuario.id,
-            nome: data[0][0].usuario.nome,
-            password: data[0][0].usuario.password,
-            telefone: data[0][0].usuario?.telefone,
-            username: data[0][0].usuario.username   
-            }
+        usuario: sel.object.usuario
 }
     mutNormal(res)
-}   
-
-    return (
+} 
+    return isLoadingUsers ? <Loading/> : (
         <div className="h-full fixed flex justify-center w-full">
         <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
             <div className="flex justify-end ">

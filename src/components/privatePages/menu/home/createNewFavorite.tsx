@@ -3,16 +3,23 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../../store/store"
 import InputMask from 'react-input-mask'
 import { hideModalCreatefavorite, showModalNotify, showModalNotifyError } from "../../../../store/conterSlice"
-import { useMutation } from "@tanstack/react-query"
-import { postCreateAttFav } from "../../../../../apis/apisCalls"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { getReturnDataUser, postCreateAttFav } from "../../../../../apis/apisCalls"
+import { Loading } from "../../../loading/loading"
 
-export function CreateNewFavorite(){
+export function CreateNewFavorite({reFav}:any){
 const dis = useDispatch()
+const [id, setId] = useState(localStorage.getItem('id'))
+const {data:sel2, isLoading: isLoadingUsers2} = useQuery({
+    queryKey: ['myRegisterThree'],
+    queryFn: ()=> getReturnDataUser(Number(id))
+})
 const{ mutate } = useMutation({
     mutationKey: ['createNewFavorite'],
     mutationFn: (e:{})=>postCreateAttFav(e),
     onSuccess: ()=>{   
-        dis(showModalNotify())   
+        dis(showModalNotify())  
+        reFav() 
     },
     onError: (s:any)=>{
         dis(showModalNotifyError())
@@ -59,21 +66,12 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
         tag: "Comercial",
         telefone: telefone,
         tipoContato: "CELULAR",
-        usuario: {
-            cpf: data[0][0].usuario?.cpf,
-            dataNascimento: data[0][0].usuario?.dataNascimento,
-            email: data[0][0].usuario?.email,
-            id: data[0][0].usuario?.id,
-            nome: data[0][0].usuario?.nome,
-            password: data[0][0].usuario?.password,
-            telefone: data[0][0].usuario?.telefone,
-            username: data[0][0].usuario?.username   
-            }
+        usuario: sel2.object.usuario
 }
     mutate(res)
 }
 
-    return (
+    return isLoadingUsers2 ? <Loading/> : (
         <div className="h-full fixed flex justify-center w-full">
         <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
             <div className="flex justify-end ">

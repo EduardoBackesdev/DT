@@ -7,7 +7,7 @@ import { Users } from "./users/users"
 import { Persons } from "./persons/persons"
 import { SearchContacts } from "./home/searchContatcts"
 import { Notify } from "../../notify/notify"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../store/store"
 import { CreateUser } from "./users/createUser"
 import { ErrorNotify } from "../../notify/errorNotify"
@@ -19,6 +19,7 @@ import { Loading } from "../../loading/loading"
 import { CreateNewFavorite } from "./home/createNewFavorite"
 
 export function Menu(){
+    const dis = useDispatch()
     const modalCreateContatcs = useSelector((s:RootState)=>s.counter.createNewContatc.show)
     const modalCreateFavorite = useSelector((s:RootState)=>s.counter.createNewFavorite.show)
     const modalCreatePerons = useSelector((s:RootState)=>s.counter.createPersons.show)
@@ -43,7 +44,6 @@ export function Menu(){
         queryKey: ["getContacts"], 
         queryFn: () => getContacts(dados)
     })
-    console.log(contacts)
     const renderPage = (nav: any) => {
         switch (nav) {
             case 0:
@@ -81,8 +81,8 @@ export function Menu(){
                 {modalSearchContactsShow && <SearchContacts/>}    
                 {modalAlterPersons && <AlterPersons/>}
                 {modalCreatePerons && <CreatePersons/>}
-                {modalCreateContatcs && <CreateNewContact/>}
-                {modalCreateFavorite && <CreateNewFavorite/>}      
+                {modalCreateContatcs && <CreateNewContact re={refetchContacts}/>}
+                {modalCreateFavorite && <CreateNewFavorite reFav={refetch}/>}      
 
                 {modalNotify && <Notify/>}
                 {modalNotifyError && <ErrorNotify/>}

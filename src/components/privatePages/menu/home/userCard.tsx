@@ -3,12 +3,17 @@ import { hideModalContacts, resetModalContacts, showModalNotify, showModalNotify
 import './home.css'
 import { RootState } from "../../../../store/store"
 import { useMutation, useQuery} from "@tanstack/react-query"
-import { getDownloadPhoto, postCreateAtt, postCreateAttFav } from "../../../../../apis/apisCalls"
+import { getDownloadPhoto, getReturnDataUser, postCreateAtt, postCreateAttFav } from "../../../../../apis/apisCalls"
 import { FormEvent, useState } from "react"
 import InputMask from 'react-input-mask'
 import { Loading } from "../../../loading/loading"
 
 export function UserCard({re, reContacts}:any){
+    const [id, setId] = useState(localStorage.getItem('id'))
+    const {data:sel3, isLoading: isLoadingUsers3} = useQuery({
+        queryKey: ['myRegisterFor'],
+        queryFn: ()=> getReturnDataUser(Number(id))
+    })
     const tipo = useSelector((s:RootState)=>s.counter.tipeContact.tipo)
     const dis = useDispatch()
     const {mutate: mutFav} = useMutation({
@@ -81,16 +86,7 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
         tag: data[0].tag,
         telefone: telefone,
         tipoContato: data[0]?.tipoContato,
-        usuario: {
-            cpf: data[0].usuario.cpf,
-            dataNascimento: data[0].usuario.dataNascimento,
-            email: data[0].usuario.email,
-            id: data[0].usuario.id,
-            nome: data[0].usuario.nome,
-            password: data[0].usuario.password,
-            telefone: data[0].usuario?.telefone,
-            username: data[0].usuario.username   
-            }
+        usuario: sel3.object.usuario
 }
     mutNormal(res)
 }
@@ -123,20 +119,11 @@ const handleSubmitFav = (e: FormEvent<HTMLFormElement>)=>{
         tag: data[0].tag,
         telefone: telefone,
         tipoContato: data[0]?.tipoContato,
-        usuario: {
-            cpf: data[0].usuario.cpf,
-            dataNascimento: data[0].usuario.dataNascimento,
-            email: data[0].usuario.email,
-            id: data[0].usuario.id,
-            nome: data[0].usuario.nome,
-            password: data[0].usuario.password,
-            telefone: data[0].usuario?.telefone,
-            username: data[0].usuario.username   
-            }
+        usuario: sel3.object.usuario
 }
     mutFav(res)
 }
-    return isLoading ? <Loading/> : (
+    return isLoading || isLoadingUsers3 ? <Loading/> : (
         <div className=" h-full flex justify-center">
             <div className="anim h-[70%] w-[50%] bg-[#d48274] fixed rounded-2xl ">
                 <div className="flex justify-end ">

@@ -60,7 +60,7 @@ export function Home({dataContatos, dataFavoritos, re, reContacts, page}:a){
                 <div className="flex justify-center">
                     <p className="text-lg">Clique no nome para alterar... ou pesquise pelo contato</p>
                     <div className="pl-2 text-2xl">
-                        <FaSearch onClick={()=> {dis(showModalSearchContacts())}} className="text-green-600 cursor-pointer" />
+                        <FaSearch onClick={()=> {dis(showModalSearchContacts()); dis(setTypeContact("normal"))}} className="text-green-600 cursor-pointer" />
                     </div>
                 </div>
             </div>
